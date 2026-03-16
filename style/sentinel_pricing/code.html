@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "accent-green": "#22c55e",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0a0712",
+                        "glass": "rgba(255, 255, 255, 0.03)",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(137, 90, 246, 0.05) 0%, rgba(34, 197, 94, 0.05) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .liquid-blob {
+            filter: blur(60px);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen relative overflow-x-hidden">
+<!-- Decorative Liquid Elements -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full liquid-blob"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-green/10 rounded-full liquid-blob"></div>
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
+<div class="layout-container flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-glass-border px-6 md:px-20 py-4 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3 text-slate-100">
+<div class="size-8 bg-gradient-to-br from-primary to-accent-green rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-xl">security</span>
+</div>
+<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">Sentinel AI</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center gap-8">
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Platform</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Models</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Pricing</a>
+<a class="text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Docs</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-slate-300 hover:text-white text-sm font-bold transition-colors">Log In</button>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-5 bg-primary hover:bg-primary/80 text-white text-sm font-bold transition-all shadow-lg shadow-primary/25">
+<span class="truncate">Get Started</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center px-6 md:px-20 py-16">
+<!-- Hero Section -->
+<div class="flex flex-col items-center text-center gap-6 mb-16 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                        Scalable Infrastructure
+                    </div>
+<h1 class="text-slate-100 text-5xl md:text-6xl font-black leading-tight tracking-tight">
+                        Flexible Plans for <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-green">Every AI Team</span>
+</h1>
+<p class="text-slate-400 text-lg md:text-xl font-normal leading-relaxed">
+                        From solo researchers to global enterprises. Accelerate your model development with our liquid-fast training compute.
+                    </p>
+</div>
+<!-- Pricing Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl">
+<!-- Starter -->
+<div class="liquid-glass rounded-2xl p-8 flex flex-col gap-8 transition-transform hover:scale-[1.02]">
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-100 text-lg font-bold">Starter</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-slate-100 text-5xl font-black tracking-tight">$0</span>
+<span class="text-slate-400 text-sm font-medium">/forever</span>
+</div>
+<p class="text-slate-400 text-sm mt-2">Perfect for individual developers and small prototypes.</p>
+</div>
+<button class="w-full flex items-center justify-center rounded-xl h-12 bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-glass-border">
+                            Start Training
+                        </button>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                5GB Distributed Storage
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Shared GPU Cluster
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Basic Model Monitoring
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300 opacity-50">
+<span class="material-symbols-outlined text-slate-500 text-lg">block</span>
+                                Custom Workflows
+                            </li>
+</ul>
+</div>
+<!-- Professional -->
+<div class="liquid-glass rounded-2xl p-8 flex flex-col gap-8 transition-transform hover:scale-[1.02] relative border-primary/40">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary rounded-full text-white text-xs font-bold shadow-lg shadow-primary/40">
+                            MOST POPULAR
+                        </div>
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-100 text-lg font-bold">Professional</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-slate-100 text-5xl font-black tracking-tight">$199</span>
+<span class="text-slate-400 text-sm font-medium">/month</span>
+</div>
+<p class="text-slate-400 text-sm mt-2">Scale your team with dedicated resources and advanced tools.</p>
+</div>
+<button class="w-full flex items-center justify-center rounded-xl h-12 bg-primary hover:bg-primary/90 text-white font-bold transition-all shadow-lg shadow-primary/20">
+                            Start Training
+                        </button>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                50GB Private Storage
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Dedicated P4-tier GPUs
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Advanced Analytics Dashboard
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Priority Support Response
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300 font-medium">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Custom Workflows &amp; API access
+                            </li>
+</ul>
+</div>
+<!-- Enterprise -->
+<div class="liquid-glass rounded-2xl p-8 flex flex-col gap-8 transition-transform hover:scale-[1.02]">
+<div class="flex flex-col gap-2">
+<h3 class="text-slate-100 text-lg font-bold">Enterprise</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-slate-100 text-5xl font-black tracking-tight">Custom</span>
+</div>
+<p class="text-slate-400 text-sm mt-2">Bespoke infrastructure for large-scale operations.</p>
+</div>
+<button class="w-full flex items-center justify-center rounded-xl h-12 bg-white/5 hover:bg-white/10 text-white font-bold transition-all border border-glass-border">
+                            Contact Sales
+                        </button>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Unlimited Secure Storage
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Multi-Region Cluster Deploy
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                24/7 Dedicated Support Lead
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                On-premise Deployment Options
+                            </li>
+<li class="flex items-center gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-accent-green text-lg">check_circle</span>
+                                Custom Security &amp; Compliance
+                            </li>
+</ul>
+</div>
+</div>
+<!-- FAQ Section -->
+<div class="mt-32 w-full max-w-4xl">
+<h2 class="text-slate-100 text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+<div class="flex flex-col gap-4">
+<details class="liquid-glass rounded-xl overflow-hidden group">
+<summary class="flex cursor-pointer items-center justify-between p-6 list-none">
+<span class="text-slate-100 font-semibold">How does the free trial compute work?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-slate-400 leading-relaxed border-t border-glass-border">
+                                Each new account receives 100 free compute units. These can be used for any model training on our shared GPU cluster. Once exhausted, you can upgrade to a paid tier or continue using the limited free community resources.
+                            </div>
+</details>
+<details class="liquid-glass rounded-xl overflow-hidden group">
+<summary class="flex cursor-pointer items-center justify-between p-6 list-none">
+<span class="text-slate-100 font-semibold">Can I upgrade or downgrade my plan?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-slate-400 leading-relaxed border-t border-glass-border">
+                                Yes, you can change your plan at any time. Downgrades will take effect at the end of your current billing cycle, while upgrades are prorated and applied immediately so you can start training faster.
+                            </div>
+</details>
+<details class="liquid-glass rounded-xl overflow-hidden group" open="">
+<summary class="flex cursor-pointer items-center justify-between p-6 list-none">
+<span class="text-slate-100 font-semibold">What security measures are in place?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-slate-400 leading-relaxed border-t border-glass-border">
+                                Sentinel AI uses military-grade encryption for all data at rest and in transit. We are SOC2 Type II compliant and offer VPC isolation for Professional and Enterprise tiers to ensure your intellectual property never leaves your private environment.
+                            </div>
+</details>
+<details class="liquid-glass rounded-xl overflow-hidden group">
+<summary class="flex cursor-pointer items-center justify-between p-6 list-none">
+<span class="text-slate-100 font-semibold">Do you offer volume discounts?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="p-6 pt-0 text-slate-400 leading-relaxed border-t border-glass-border">
+                                Absolutely. For organizations training hundreds of models monthly, we offer custom throughput-based pricing. Reach out to our sales team for a custom quote based on your specific GPU requirements.
+                            </div>
+</details>
+</div>
+</div>
+<!-- Footer CTA -->
+<div class="mt-32 w-full max-w-5xl liquid-glass rounded-3xl p-12 text-center flex flex-col items-center gap-6 overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent-green/10 -z-10"></div>
+<h2 class="text-slate-100 text-4xl font-bold tracking-tight">Ready to build the future?</h2>
+<p class="text-slate-400 text-lg max-w-2xl">Join over 50,000 developers and researchers building state-of-the-art AI on Sentinel's infrastructure.</p>
+<div class="flex flex-wrap justify-center gap-4 mt-4">
+<button class="px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-xl shadow-primary/30 hover:scale-105 transition-transform">Get Started Free</button>
+<button class="px-8 py-4 bg-white/5 border border-glass-border text-white font-bold rounded-xl hover:bg-white/10 transition-all">Talk to Sales</button>
+</div>
+</div>
+</main>
+<!-- Footer Small -->
+<footer class="px-6 md:px-20 py-12 border-t border-glass-border flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3 text-slate-400">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="text-sm font-medium">© 2024 Sentinel AI Platform. All rights reserved.</span>
+</div>
+<div class="flex gap-8 text-slate-500 text-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                        "success-green": "#10b981",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-white/10 px-6 py-4 lg:px-20 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Sentinel</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium opacity-70 hover:opacity-100 transition-opacity" href="#">Dashboard</a>
+<a class="text-sm font-medium opacity-70 hover:opacity-100 transition-opacity" href="#">Modules</a>
+<a class="text-sm font-medium text-primary" href="#">Assessments</a>
+<a class="text-sm font-medium opacity-70 hover:opacity-100 transition-opacity" href="#">Resources</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center p-6 lg:p-12 relative">
+<!-- Decorative background elements -->
+<div class="absolute top-1/4 left-1/4 size-64 bg-primary/20 rounded-full blur-[120px] -z-10"></div>
+<div class="absolute bottom-1/4 right-1/4 size-64 bg-success-green/20 rounded-full blur-[120px] -z-10"></div>
+<div class="max-w-4xl w-full flex flex-col gap-8">
+<!-- Main Result Card -->
+<div class="liquid-glass rounded-xl p-8 lg:p-12 flex flex-col items-center text-center">
+<div class="mb-6">
+<span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-success-green/10 text-success-green text-sm font-bold border border-success-green/20 uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">verified</span>
+                            Assessment Passed
+                        </span>
+</div>
+<div class="relative flex items-center justify-center mb-8">
+<!-- Circular Gauge -->
+<svg class="size-48 lg:size-64">
+<circle class="text-white/5" cx="128" cy="128" fill="transparent" r="90" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-success-green progress-ring-circle" cx="128" cy="128" fill="transparent" r="90" stroke="currentColor" stroke-dasharray="565.48" stroke-dashoffset="45.23" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-5xl lg:text-7xl font-bold">92%</span>
+<span class="text-slate-400 font-medium">Score</span>
+</div>
+</div>
+<h1 class="text-3xl lg:text-5xl font-bold mb-4">Rank: Specialist</h1>
+<p class="text-lg text-slate-400 max-w-md mx-auto mb-10">
+                        Excellent performance! You have successfully demonstrated mastery and unlocked the <span class="text-white font-semibold underline decoration-primary underline-offset-4">Advanced Network Defense</span> module.
+                    </p>
+<!-- Breakdown Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-2xl">
+<div class="liquid-glass rounded-lg p-4 border-l-4 border-success-green">
+<p class="text-xs text-slate-400 uppercase font-bold mb-1">Correct</p>
+<p class="text-2xl font-bold">46</p>
+</div>
+<div class="liquid-glass rounded-lg p-4 border-l-4 border-red-500/50">
+<p class="text-xs text-slate-400 uppercase font-bold mb-1">Incorrect</p>
+<p class="text-2xl font-bold">4</p>
+</div>
+<div class="liquid-glass rounded-lg p-4 border-l-4 border-primary">
+<p class="text-xs text-slate-400 uppercase font-bold mb-1">Time Spent</p>
+<p class="text-2xl font-bold">14:22</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+<button class="flex flex-1 items-center justify-center gap-2 px-8 py-4 rounded-xl liquid-glass font-bold text-slate-100 hover:bg-white/10 transition-all border-white/20">
+<span class="material-symbols-outlined">visibility</span>
+                        Review Answers
+                    </button>
+<button class="flex flex-[1.5] items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-white font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/30">
+                        Continue to Next Module
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Next Module Preview -->
+<div class="liquid-glass rounded-xl p-6 flex flex-col md:flex-row items-center gap-6 border-white/5">
+<div class="size-20 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">security</span>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest mb-1">Unlocked Module</h4>
+<h3 class="text-xl font-bold">Advanced Network Defense</h3>
+<p class="text-sm text-slate-400 mt-1">Deep dive into intrusion detection systems and threat hunting tactics.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-10 w-px bg-white/10 hidden md:block"></div>
+<div class="text-right hidden sm:block">
+<p class="text-xs text-slate-500 uppercase font-bold">Est. Time</p>
+<p class="font-medium">120 min</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="p-8 text-center text-slate-500 text-sm">
+<p>© 2024 Sentinel Security Training Platform. All rights reserved.</p>
+</footer>
+</div>
+</body></html>

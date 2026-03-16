@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel | Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "accent-green": "#0bda6f",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0a0712",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(46, 34, 73, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+        }
+        .liquid-glass-intense {
+            background: rgba(137, 90, 246, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(137, 90, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 liquid-glass border-b border-primary/20 px-4 md:px-10 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Sentinel</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium" href="#">Missions</a>
+<a class="text-white border-b-2 border-primary pb-1 text-sm font-medium" href="#">Leaderboard</a>
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium" href="#">Academy</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="bg-primary/10 border-primary/20 rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-primary focus:border-primary w-64" placeholder="Search agents..." type="text"/>
+</div>
+<button class="p-2 rounded-lg bg-primary/10 text-slate-100 hover:bg-primary/20">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary p-0.5">
+<img alt="User Profile" class="rounded-full w-full h-full object-cover" data-alt="User profile avatar of a tech specialist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMwGqJ-ZVkCqFccgE0CXsy3eLEW56ALn5j4a_5kYjM9Cm4RpWOG36dwS1bgpf2Om6DuRZwOL6UGq39hckukw4fzS6gfWUjfYaPbXEs11sQuPswi7cKy7nMyh9VJfItG493d_dgJmePqeR6pQ084taVKsQM9zpKBVUrnBbvaB6Km71ohyqQb7ytjUEEDKRGth76_6uD0NgAfK4gzmCUdKIUhIG-T6dQd4GpNAQg-Q3IboerQEoNWF--tCCrxVs81cyoCEClUeouxPrR"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 py-8">
+<!-- Hero Section -->
+<div class="mb-10">
+<h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-white to-primary bg-clip-text text-transparent">Global Leaderboard</h1>
+<p class="text-slate-400 max-w-2xl">Compete with the world's top AI training specialists. Optimize models, finish missions, and climb the ranks.</p>
+</div>
+<!-- Your Standing & Stats -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10">
+<div class="lg:col-span-3 liquid-glass-intense rounded-xl p-6 flex flex-col md:flex-row items-center gap-8 border-l-4 border-primary">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative">
+<div class="size-20 rounded-full border-4 border-primary/40 p-1">
+<img alt="User avatar" class="rounded-full w-full h-full" data-alt="Close up of a futuristic profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWlcAWo1L9FSv9Gs72YtFfASAuC86pE5vENJPEKFe3UFQZ2qTrKglL7gW76r7_RH-sS_QP_4BpfzqKmirhze1gB-t_efcHlg1qOvUV_tWPKoYOSGhQHnLdPnijr0PwVg3-M9FKdMPEMUVh5HvGjhiwuj3bkzNJtoVjamjjGgcZduKtr5vjdzRFZ_bizFSb3xxgjnuRPB-PsCSzaUkCfwjNwYYKR3zKhA2wjHXDfQa7-Y641xpZkc9PAqaVgFjdXSCdgwPfiJlzSbm3"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-accent-green size-6 rounded-full border-2 border-background-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-background-dark font-bold">check</span>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold">Alex Rivera <span class="text-sm font-normal text-slate-400 ml-2">(You)</span></h3>
+<div class="flex gap-4 mt-1">
+<span class="flex items-center gap-1 text-primary text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">military_tech</span> Lead Engineer
+                            </span>
+<span class="flex items-center gap-1 text-accent-green text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> Top 5%
+                            </span>
+</div>
+</div>
+</div>
+<div class="flex gap-10 md:border-l border-primary/20 md:pl-10">
+<div class="text-center">
+<p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Rank</p>
+<p class="text-3xl font-black text-white">#42</p>
+</div>
+<div class="text-center">
+<p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Total XP</p>
+<p class="text-3xl font-black text-white">12,850</p>
+</div>
+<div class="text-center">
+<p class="text-slate-400 text-xs uppercase tracking-widest mb-1">Missions</p>
+<p class="text-3xl font-black text-white">158</p>
+</div>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex flex-col justify-between overflow-hidden relative group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">auto_awesome</span>
+</div>
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">Next Tier Progress</p>
+<p class="text-lg font-bold text-white mb-4">Senior Architect</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span>2,150 XP remaining</span>
+<span class="text-primary">82%</span>
+</div>
+<div class="h-2 w-full bg-primary/20 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[82%] shadow-[0_0_10px_rgba(137,90,246,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<!-- Main Leaderboard Table -->
+<div class="lg:col-span-3 space-y-4">
+<div class="flex items-center justify-between px-4">
+<div class="flex gap-4">
+<button class="text-sm font-bold border-b-2 border-primary pb-1 text-white">Global</button>
+<button class="text-sm font-medium text-slate-500 hover:text-slate-300 pb-1">Regional</button>
+<button class="text-sm font-medium text-slate-500 hover:text-slate-300 pb-1">Friends</button>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-400">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                        Refreshes in 14:02:45
+                    </div>
+</div>
+<div class="liquid-glass rounded-xl overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-primary/5 text-slate-400 text-xs uppercase tracking-widest border-b border-primary/10">
+<tr>
+<th class="px-6 py-4 font-medium">Rank</th>
+<th class="px-6 py-4 font-medium">Agent</th>
+<th class="px-6 py-4 font-medium text-center">Tier</th>
+<th class="px-6 py-4 font-medium text-right">Missions</th>
+<th class="px-6 py-4 font-medium text-right">XP</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<!-- Top 3 -->
+<tr class="bg-primary/5 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-yellow-400">01</span>
+<span class="material-symbols-outlined text-yellow-400 fill-1">workspace_premium</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full border border-yellow-400/50" data-alt="Avatar of high ranking user 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwbIB9cAs9NaMa3HOlE7xagAYe4LpzPGjAcm3UEl7Oje6-zZy3yOzGPhDJUIFxbZ5U4oggAklaC3r1GRbv9Wn6aZ9TeiMvLdiGzTujdJAEw-Hijdm9Z002_J-bK416pefPIH17UfcQTAvFmkEZhr1qKVajZTg20wb5p35OtNqnXvkEAPsZAvCnvOguPpkRGW9CN1MMVuC7dlx6UeR-CglxRZj2eVFx2Y31_DNAWNvlXEp47PzIDdGpzIFQ3B1yUhUswVRNM6kuiqIe"/>
+<div>
+<p class="font-bold text-white">Nova_Sentinel</p>
+<p class="text-xs text-slate-500">Member since 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-yellow-400/10 text-yellow-400 px-3 py-1 rounded-full text-xs font-bold border border-yellow-400/20">Grandmaster</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-slate-300">842</td>
+<td class="px-6 py-5 text-right font-black text-white">42,900</td>
+</tr>
+<tr class="bg-slate-500/5 hover:bg-slate-500/10 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-slate-300">02</span>
+<span class="material-symbols-outlined text-slate-300 fill-1">workspace_premium</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full border border-slate-300/50" data-alt="Avatar of high ranking user 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1pGy6Xdh5latSNH4rXoaXzVRuBBWeNX3LrWyxW0edAfFa_rhvvhztnM_vsead23RD37IUajCdwZKxtpbU9cZtpxLIk_L2ZAk1phU1WT9bA8Dm7rPUHQKHoCHAVMdbvjmnaoqgj5mjKW502SZvE5Mff_tc59A_s_XXf_M2RZiIDXTiSMNyGcdbh1ZaWlcW9aUuEkpDmrDMcESy5SkJg1aYFXCIpZ47US5bvSqQNwy0TipoINiWckFm61uTR3Q58dke3piUlJY9iOUF"/>
+<div>
+<p class="font-bold text-white">CyberGhost_01</p>
+<p class="text-xs text-slate-500">Member since 2024</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-slate-300/10 text-slate-300 px-3 py-1 rounded-full text-xs font-bold border border-slate-300/20">Master</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-slate-300">715</td>
+<td class="px-6 py-5 text-right font-black text-white">38,120</td>
+</tr>
+<tr class="bg-orange-600/5 hover:bg-orange-600/10 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-orange-400">03</span>
+<span class="material-symbols-outlined text-orange-400 fill-1">workspace_premium</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full border border-orange-400/50" data-alt="Avatar of high ranking user 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDltcs8wXnjlliRYqbA28TC_CqdFT9ne6h0Z-J8WnLBuCdAB9f50qfUVLNzJxWnId5xYmF0KQd1n_10ptykCgmW-9zkCDiYFEbnzqt8DbJ_iz3_JGCvsjZXGE5cDwv4hXptVENliZRBtP8EspgaDp918ERYYOzUMkrlKcYyzyPC_Uy1e31dWX7Ko55WiwBj2kQatRYU2qsdqwp4nis83wILPmVvLxBqyD7hliP30bLArTzZg0ux596x5sQVJaCBmUyQhdIOpnJRCJjX"/>
+<div>
+<p class="font-bold text-white">AlphaCore</p>
+<p class="text-xs text-slate-500">Member since 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-orange-600/10 text-orange-400 px-3 py-1 rounded-full text-xs font-bold border border-orange-600/20">Master</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-slate-300">682</td>
+<td class="px-6 py-5 text-right font-black text-white">35,400</td>
+</tr>
+<!-- Regular Rows -->
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5 text-xl font-bold text-slate-500">04</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full" data-alt="Default user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEvCZR7OxA5LZBJKjYrF_OwVnY3kIvb31Vs7CwuoIV7vYMFguDwBkvm3P0lCPKOd1ALADDl_pg8rP3296dQqiiBf2vbCBNToa1glOcY3rs35weJ5Wes8zjnV0ObnZtrxvi-3jEMlbO9TkQixGrjt9bMdap6pQgGKdJjAtuwHKw9L6mCymCVeqjpp9w-gj24vhXCdZ7NFpEIUgoMeywiF-DWLf6vuDp6BAf_Zyu0Tg7J33zVxJH433AQITLXqoPWBMgCmSyl1MERKoJ"/>
+<p class="font-bold text-white">VectorMatrix</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold border border-primary/20">Elite Agent</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-slate-300">452</td>
+<td class="px-6 py-5 text-right font-black text-white">28,940</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-5 text-xl font-bold text-slate-500">05</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full" data-alt="Default user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5XkGDaLbXvHPid1QmPpSYD7khPPczTxDB4Ci5qx6XM1wSpTszamvThwp_HnETrS-t89Ztd3M--TCfiUIzC4WML0e3yjwu6cw7KNBf1njDj2JGmvNY5e5V00tIK_V_GPV9hpVRDzFe4xCMNFMRCjJYA6Eefu9VaqEzIgWPTJYtPZj79qwQgN1uFFPAQrnjue6rGLzuV_zLkGpeyel7649U9W-1f0wSBqO2Q3wK9cpvVsJB74mP3BARQzebfTXyNn38Y_6Hdv1UMS9s"/>
+<p class="font-bold text-white">BinarySoul</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold border border-primary/20">Elite Agent</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-slate-300">410</td>
+<td class="px-6 py-5 text-right font-black text-white">26,110</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors border-y border-primary/30 bg-primary/10">
+<td class="px-6 py-5 text-xl font-black text-primary">42</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Avatar" class="size-10 rounded-full border border-primary" data-alt="The current user avatar in the list" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1q4QqdVoq4ZyW1J5GeDwgCw3dG3rcQc6t2ljP2vZ7SmzTvgblbInANLpISurDfTD8GlKNkNJek6yHXXoXuZUPZqfztInoLifyj3IEyR831FicL_Puz9zDs5EWvmbdfTQVN4xxh5WPNHR3dOyiUQrpiyXxa3yEToDESGNvVOn8nGxgd2Szreiq5RWlUPLFyEwz0UsotTzmbudCFb7ylACYgPrhI737ibakbX5NiR5IzXNWnWuDa0tUvet0FY0onOAmUFWdi3AjOugM"/>
+<div>
+<p class="font-bold text-white">Alex Rivera</p>
+<p class="text-[10px] text-primary font-bold tracking-tighter uppercase">Current Standing</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-primary/20 text-white px-3 py-1 rounded-full text-xs font-bold border border-primary/40">Lead Engineer</span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-white">158</td>
+<td class="px-6 py-5 text-right font-black text-white">12,850</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="space-y-6">
+<!-- Weekly Gainers Section -->
+<div class="liquid-glass rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-green">bolt</span>
+                            Weekly Top Gainers
+                        </h4>
+<span class="text-xs text-slate-500 font-bold">7D</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gradient-to-br from-primary to-accent-green p-0.5">
+<img alt="Avatar" class="rounded-full w-full h-full" data-alt="Avatar of a weekly top gainer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQaop1wUQZ0ifzm-rO01L9FITVm3OPvGKBrzbMQddY3bJBjLBjX-OthSp_YyanmUY5HTmTqDG_rT0bRXpMhGnmkkjL6rTD_Bsc2R-TXtW8czKP-1SKCN72m4sDiPpzTaJHz-vVb44hSJMK3Vr27GZaXO2g9OyvP8wyOczQGcQvGeOJvv_lfxA4cXFk5eJ5a8wvUoVKhJ90DnA93Ulyt7AgkG7DIAAzfXwam8Z_olXe7H7Gow7QxYLiBfIdR9coOou1rsb8xcGmqOJG"/>
+</div>
+<div>
+<p class="text-sm font-bold text-white">PixelMancer</p>
+<p class="text-xs text-accent-green">+4,200 XP</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-green text-sm">trending_up</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 p-0.5">
+<img alt="Avatar" class="rounded-full w-full h-full" data-alt="Avatar of a weekly top gainer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSCdJvfK4xI7QOHKp4BmSSyZGlTpeC74l8mErSwoRRz-MDRCthFCYSw_uotTHAIA83JHGNvaCDC-u6kSbIXy2UGI1FosIDivS94FP5CUCcYkm_DTcgiYB5smmHePRFpgLg7O-iTNM6M4LbB8UheDFhpKBIgYtYB17D8u_oDDZ4E_BLemYE6aZrHgMciiqsu9S6Jbpuk5qvWxsSxRunTlU-0B1CpkPkq61KQrqYGEwvXSUUOt03LJo8vpuCopUIukmTSSh5G5nyXKp5"/>
+</div>
+<div>
+<p class="text-sm font-bold text-white">DataDrifter</p>
+<p class="text-xs text-accent-green">+3,850 XP</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-green text-sm">trending_up</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-700 p-0.5">
+<img alt="Avatar" class="rounded-full w-full h-full" data-alt="Avatar of a weekly top gainer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpXdTMHPdFihbZZFl_o95DGFrByIzw2TDwL7ssSNyZkLnuHC9ZclG1wQePhvmAPP45x248UTA7Chfk2PdTefJtlVoGq87zNQOt_8x3TQF1rVWWPQ-cY2I4h0Tv2TYmm-dQcj0c5romlC6fCXg4cz0U2TQvH3MQTUuge-W3PYVc1B6BZd2_opzbyTDyM_yi6rc1vg-TJCI3a4oHBbfOzIJWyHYV_vjk41_aalXEuc-zA9LJ4NNgbhH4X1E6ngLHEUcx3aQI0zJXdw_G"/>
+</div>
+<div>
+<p class="text-sm font-bold text-white">LogicGate</p>
+<p class="text-xs text-accent-green">+2,100 XP</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-green text-sm">trending_up</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold transition-all border border-primary/20">
+                        VIEW ALL GAINERS
+                    </button>
+</div>
+<!-- Badges & Achievements -->
+<div class="liquid-glass rounded-xl p-6">
+<h4 class="font-bold text-white flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-yellow-500">military_tech</span>
+                        Your Tier Badges
+                    </h4>
+<div class="flex flex-wrap gap-4">
+<div class="size-12 rounded-lg bg-gradient-to-tr from-slate-800 to-slate-700 border border-slate-600 flex items-center justify-center group relative cursor-pointer">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">rocket_launch</span>
+<div class="absolute -top-10 scale-0 group-hover:scale-100 transition-all bg-primary px-2 py-1 rounded text-[10px] font-bold whitespace-nowrap">Rapid Optimizer</div>
+</div>
+<div class="size-12 rounded-lg bg-gradient-to-tr from-primary/30 to-primary/10 border border-primary/30 flex items-center justify-center group relative cursor-pointer">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors">security</span>
+<div class="absolute -top-10 scale-0 group-hover:scale-100 transition-all bg-primary px-2 py-1 rounded text-[10px] font-bold whitespace-nowrap">Model Guardian</div>
+</div>
+<div class="size-12 rounded-lg bg-gradient-to-tr from-slate-800 to-slate-700 border border-slate-600 flex items-center justify-center group relative cursor-pointer">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">psychology</span>
+<div class="absolute -top-10 scale-0 group-hover:scale-100 transition-all bg-primary px-2 py-1 rounded text-[10px] font-bold whitespace-nowrap">Neural Specialist</div>
+</div>
+<div class="size-12 rounded-lg bg-gradient-to-tr from-slate-800 to-slate-700 border border-slate-600 flex items-center justify-center border-dashed opacity-40">
+<span class="material-symbols-outlined text-slate-500">lock</span>
+</div>
+</div>
+</div>
+<!-- Featured Reward Card -->
+<div class="rounded-xl overflow-hidden relative group h-48">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Abstract blue and purple data visualization background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLNC8OHqr-MrLmrsebVa3-R9otadfx9UNAIvjKb6VgYihN2GXRyXilsKMSjpZOZBhSOf0W3uNDQIsVRtUwSSykN4ruQV_gD1Sl756Gzq95HR7eBLoY_ESKxWdDMbuKjtnNdqEqEjQdEZbEQMd0QaE6-JptUhjkoJKR-Uuo4O-OHj1Bqc-kvwpuP9SAz3voZERDOZzWAXfaGDxrrpe9dLOm8vUfhaDcbDNVUMH9jN7_wrieZSmsD1ClyMelJyE09PM3iUPWM65eryT-')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full">
+<span class="text-[10px] font-bold tracking-widest text-primary uppercase mb-1 block">Seasonal Event</span>
+<h5 class="text-white font-bold leading-tight mb-2">The Quantum Rift: Top 10 users earn a unique Badge</h5>
+<div class="flex items-center justify-between">
+<p class="text-xs text-slate-300">Ends in 2 days</p>
+<span class="material-symbols-outlined text-white text-lg">arrow_forward</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<footer class="mt-20 border-t border-primary/10 py-10 liquid-glass">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3 opacity-50">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-white">Sentinel</h2>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">API Status</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<p class="text-sm text-slate-600">© 2024 Sentinel AI Platform. All systems operational.</p>
+</div>
+</footer>
+</body></html>

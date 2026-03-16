@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel | Module 4 Assessment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "secondary": "#22c55e",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(137, 90, 246, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(137, 90, 246, 0.4);
+        }
+        .gradient-mesh {
+            background-color: #151022;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(137, 90, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(34, 197, 94, 0.1) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen gradient-mesh">
+<div class="relative flex h-auto min-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 md:px-20 py-4 liquid-glass sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Sentinel</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Modules</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Resources</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Leaderboard</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/30" data-alt="User profile avatar close up portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSZXkFRe0dZxL1ICo636PdRWEJaTisAFOLRqWNFemo7T5NdgrYFcusPixHTMLOxs88Tnfigo1O-szA1ZnqHAGgg8HurHXxopWpvhIVmbjJo5Q1jw5BM5oDE_ZpsD_M1WH8hqf7puIVuxv-SuSTinawlEOjtwH6bcG8IyjwjBIHjlHYzGqnHCeeNoWPtreIiGaHsRtH84WbWNpmnQHJuf5nMZuMaARO5HKf1_-HJu619tB_KoNtMh98ltGeTlcPSL_ko0mPT5j17OtB");'></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+<div class="max-w-4xl w-full space-y-8">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+<div class="relative overflow-hidden rounded-xl liquid-glass min-h-[300px] flex flex-col justify-end p-8 bg-cover bg-center" data-alt="Abstract neural network nodes and data connections background" style="background-image: linear-gradient(to top, rgba(21, 16, 34, 0.95), rgba(21, 16, 34, 0.2)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAmG2bMfzrq1ztuE8jDVEK5CX38ljCnseKyDWwxuFDTl54DuU5arPn32vDIgLKGtwMYH1FzcLYbTydmp1UUsOj9lkmbHYEBJkCQqDZ7d8JrgYIa2mE_hNWj1nulhiJocdYe_HYvunnDvM1v5oXl2y-pc4Pyi_ZJab5Cuop8ldQe-jQQnTURCgfuO2NMi-6faY4pNz--9RPJUxon6VFS5EKFLnnl5L5-kDUQMGU7QVYgkRyMyd-Ig_1hlgjfD10C6yWH8inMUlOU-Jt');">
+<div class="space-y-4">
+<span class="px-3 py-1 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-xs font-bold uppercase tracking-widest">Advanced Module</span>
+<h1 class="text-4xl md:text-5xl font-black text-white leading-tight">Module 4 Assessment: <span class="text-primary">Neural Network Optimization</span></h1>
+<p class="text-slate-300 text-lg max-w-2xl leading-relaxed font-light">Test your knowledge on backpropagation algorithms, gradient descent variants, and activation functions for deep learning architectures.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="liquid-glass rounded-xl p-6 flex items-center gap-4 border-l-4 border-l-primary group hover:bg-primary/5 transition-colors">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">quiz</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Total Questions</p>
+<p class="text-2xl font-bold text-slate-100">20 Items</p>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex items-center gap-4 border-l-4 border-l-primary group hover:bg-primary/5 transition-colors">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">timer</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Time Limit</p>
+<p class="text-2xl font-bold text-slate-100">30 Minutes</p>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex items-center gap-4 border-l-4 border-l-secondary group hover:bg-secondary/5 transition-colors">
+<div class="size-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Passing Score</p>
+<p class="text-2xl font-bold text-slate-100">85%</p>
+</div>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-8 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<h3 class="text-xl font-bold text-slate-100">Assessment Instructions</h3>
+</div>
+<ul class="space-y-4 text-slate-300">
+<li class="flex items-start gap-3">
+<span class="size-2 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+<span>Ensure a stable internet connection before starting the assessment.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-2 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+<span>The timer will start as soon as you click the button below. You cannot pause the timer.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-2 rounded-full bg-primary mt-2 flex-shrink-0"></span>
+<span>You are required to achieve at least 85% to unlock the certification for Module 4.</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-4">
+<div class="flex items-center gap-4">
+<div class="flex -space-x-3">
+<div class="size-8 rounded-full border-2 border-background-dark bg-cover" data-alt="Student avatar placeholder 1" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAErqoIpwkJGoGv1nMMCoiXyxcvjK_M0s31SKrQRsRvTMPOfHlWs_7IXvqx4qAFJ3-Nl1fg-gSxnTwRv0rry2N0f8OEtbqMb_lyzSLbBmAfhj2xURaCGiP90_Iha9zg3o_kV3n6XY3H99qwdZbUsDO-s_v85R4V-6e1al-S_BPrvqDOgwAPRdQhYTUiiRqnCz8shiGqMdgbgM_-m09Soj1S0zs6UDBSxREzK9RZziuIcXmPVMStZ99qgogI_5tSEQNeLsAqRNmJMuhs')"></div>
+<div class="size-8 rounded-full border-2 border-background-dark bg-cover" data-alt="Student avatar placeholder 2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKFmNvX3vvIGQbWWLP11L_M1dcRr79HTISNto76KTUX-vhrHxisaE7CB8NqRUvwVaHQPWwvP-TapUYEbL7GbdzauDE6QA3NmviTOOSZM-LddRNAG6woizaF-dTNfWl-aMBvthH7-Ynm6y90SM-fsPbqPgLYmK7eUI-ozG4MwB85jvMEPdV0_uJWDqGv9FX3WPSFTTWm0rGxuF865uP5lcjoeZ386qKdK-yj0jkZ28H_AXUrBOGQf__m-XAJ0s6-byoklsaYVI30Nz5')"></div>
+<div class="size-8 rounded-full border-2 border-background-dark bg-cover" data-alt="Student avatar placeholder 3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBBZGHOHl7MZi2FIWhBDKYLoOp4NRIehpS_4mf8LW0GpDnFurHWvShGRVjP4dJOuej-58cu0lykLrChHO65mgCeK6wl-Ysj5weDdTtvkH4YIyERl7iv4TGy7t_jsRZQCERoU2C6D8llCqYfaGwLmhLgSeYMCm66ggjkJUE49DP8ra0b2Dh2gAkG9ywEOnvsC2-FgWR3yqsPNeltB0tNYZN5eeYCMYq-_6v5H9FqWVDDDWlnPCyYC_SB-ph_q0pRP87L1FtUZQRvdRW')"></div>
+</div>
+<p class="text-slate-400 text-sm italic">420+ students completed this today</p>
+</div>
+<button class="w-full md:w-auto px-12 py-5 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-xl transition-all glow-purple transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3">
+                            Start Assessment
+                            <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</div>
+</div>
+</main>
+<footer class="px-20 py-10 border-t border-primary/10 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-slate-500 text-sm">© 2024 Sentinel AI Platform. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

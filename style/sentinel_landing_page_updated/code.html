@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel | Future of Manufacturing Intelligence</title>
+<!-- Google Fonts: Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a855f7', // Purple-500
+            secondary: '#22c55e', // Green-500
+            surface: '#0a0a0c',
+            glass: 'rgba(255, 255, 255, 0.03)',
+            'glass-border': 'rgba(255, 255, 255, 0.1)',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          },
+          backdropBlur: {
+            'xs': '2px',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles for Liquid Glass and Aesthetics -->
+<style data-purpose="liquid-glass-effects">
+    .liquid-glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px) saturate(200%);
+      -webkit-backdrop-filter: blur(12px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.125);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    
+    .hero-gradient {
+      background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+    }
+
+    .animated-blob {
+      filter: blur(40px);
+      z-index: -1;
+      opacity: 0.3;
+      animation: float 20s infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(10%, 10%) scale(1.1); }
+      100% { transform: translate(-5%, 5%) scale(0.9); }
+    }
+
+    .nav-link-glow:hover {
+      text-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+    }
+  </style>
+</head>
+<body class="bg-surface text-slate-100 font-sans selection:bg-primary selection:text-white overflow-x-hidden">
+<!-- BEGIN: Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary rounded-full animated-blob"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-emerald-900 rounded-full animated-blob" style="animation-delay: -5s;"></div>
+</div>
+<!-- END: Background Elements -->
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 w-full z-50 px-4 py-4" data-purpose="navigation-container">
+<nav class="max-w-7xl mx-auto liquid-glass rounded-custom px-6 py-3 flex items-center justify-between" data-purpose="main-navbar">
+<!-- Logo -->
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+<span class="font-bold text-white text-xl">S</span>
+</div>
+<span class="font-bold text-xl tracking-tight uppercase">Sentinel</span>
+</div>
+<!-- Nav Links -->
+<div class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+<a class="hover:text-primary transition-colors nav-link-glow" href="#">Home</a>
+<a class="hover:text-primary transition-colors nav-link-glow text-slate-400" href="#">Dashboard</a>
+<a class="hover:text-primary transition-colors nav-link-glow text-slate-400" href="#">Curriculum</a>
+<a class="hover:text-primary transition-colors nav-link-glow text-slate-400" href="#">Missions</a>
+</div>
+<!-- Action Button -->
+<div>
+<button class="bg-primary/10 border border-primary/30 hover:bg-primary hover:text-white text-primary transition-all px-5 py-2 rounded-custom text-sm font-bold uppercase tracking-wider">
+          Sign In
+        </button>
+</div>
+</nav>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: HeroSection -->
+<main class="relative min-h-screen flex items-center pt-20 overflow-hidden" data-purpose="hero-section">
+<!-- Hero Content -->
+<section class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full">
+<div class="z-10" data-purpose="hero-text-content">
+<div class="inline-block px-3 py-1 rounded-full bg-secondary/20 text-secondary border border-secondary/30 text-xs font-bold uppercase tracking-[0.2em] mb-6">
+          The Future of Factory Intelligence
+        </div>
+<h1 class="text-5xl lg:text-7xl font-bold leading-[1.1] mb-6">
+          Master the Art of <span class="text-secondary italic">Industrial</span> Neural Training.
+        </h1>
+<p class="text-slate-400 text-lg lg:text-xl mb-10 max-w-xl leading-relaxed">
+          The first professional platform dedicated to training AI models for heavy industry, predictive maintenance, and autonomous logistics. 
+        </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:bg-purple-600 text-white px-10 py-4 rounded-custom font-bold uppercase tracking-widest transition-all shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95">
+            Start Training
+          </button>
+<button class="liquid-glass hover:bg-white/10 text-white px-10 py-4 rounded-custom font-bold uppercase tracking-widest transition-all">
+            View Syllabus
+          </button>
+</div>
+<!-- Quick Stats -->
+<div class="mt-16 grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
+<div>
+<div class="text-2xl font-bold">12k+</div>
+<div class="text-xs text-slate-500 uppercase tracking-widest">Active Trainees</div>
+</div>
+<div>
+<div class="text-2xl font-bold">45</div>
+<div class="text-xs text-slate-500 uppercase tracking-widest">AI Missions</div>
+</div>
+<div>
+<div class="text-2xl font-bold">98%</div>
+<div class="text-xs text-slate-500 uppercase tracking-widest">Success Rate</div>
+</div>
+</div>
+</div>
+<!-- Hero Visual Representation -->
+<div class="relative z-10" data-purpose="hero-image-container">
+<!-- Liquid Glass Card for UI Preview -->
+<div class="liquid-glass p-4 rounded-xl relative overflow-hidden aspect-video group">
+<img alt="High-tech industrial interface" class="w-full h-full object-cover rounded-lg opacity-80 group-hover:opacity-100 transition-opacity duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Sb94f-cbhYCSKhpKNwUu3kD4PiBDQF5a4_Lm91hq4gKWmZcBMuJw3UkcSZKfd664u3l1AAU807ylWiNlqE3c_T_LcegWnMbBVNITSI7A-5j6xboGtLPWu-w8dXRkP1opVO2JLauIo4lma1EjgBx-QdPWEPNn-ImlxuiJoS8j187cU5pM4TklS-jHuGdgNez6N8UdWsNIDUieWigNVvADeN42NLhyIkVVQ3e8xxPQ4nEnBI72fBHBTflkI_8woAkmrSpGz4YBLQci"/>
+<!-- Floating UI Elements -->
+<div class="absolute top-8 left-8 liquid-glass p-3 rounded-custom text-xs animate-bounce" style="animation-duration: 4s;">
+<div class="text-secondary font-bold">Real-time Telemetry</div>
+<div class="text-slate-300">Efficiency: +14.2%</div>
+</div>
+<div class="absolute bottom-12 right-12 liquid-glass p-4 rounded-custom max-w-[200px]">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+<span class="text-[10px] uppercase font-bold tracking-tighter">Neural Link Active</span>
+</div>
+<div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Background Glow behind the card -->
+<div class="absolute -inset-4 bg-primary/10 blur-3xl rounded-full"></div>
+</div>
+</section>
+<!-- Background Industrial Pattern -->
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-10 pointer-events-none hero-gradient" style="background-image: radial-gradient(#a855f7 1px, transparent 1px); background-size: 30px 30px;"></div>
+</main>
+<!-- END: HeroSection -->
+<!-- BEGIN: FeatureStrip -->
+<section class="py-20 bg-surface/50 border-y border-white/5" data-purpose="featured-partners">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex flex-wrap justify-between items-center gap-10 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+<span class="text-xl font-bold">ROBOCORE</span>
+<span class="text-xl font-bold">IRONCLOUD</span>
+<span class="text-xl font-bold">NEURALFAB</span>
+<span class="text-xl font-bold">STEELMIND</span>
+<span class="text-xl font-bold">OMNI-DRIVE</span>
+</div>
+</div>
+</section>
+<!-- END: FeatureStrip -->
+<!-- BEGIN: Footer -->
+<footer class="py-12 border-t border-white/5" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-slate-500 text-sm">
+        © 2024 Sentinel. All training modules certified.
+      </div>
+<div class="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+<a class="hover:text-primary" href="#">System Status</a>
+<a class="hover:text-primary" href="#">Protocol Docs</a>
+<a class="hover:text-primary" href="#">Neural Privacy</a>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>

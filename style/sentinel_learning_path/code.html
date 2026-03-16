@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel - Learning Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "accent-green": "#10b981",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                        "glass-purple": "rgba(137, 90, 246, 0.1)",
+                        "glass-border": "rgba(137, 90, 246, 0.2)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(137, 90, 246, 0.1), rgba(16, 185, 129, 0.05));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .path-line {
+            background: linear-gradient(to bottom, #10b981 0%, #895af6 50%, #2e2249 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-white/10 px-6 py-4 sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Sentinel</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden md:flex gap-1 bg-white/5 p-1 rounded-lg border border-white/10">
+<button class="px-4 py-1.5 text-sm font-medium rounded-md hover:bg-white/5 transition-colors">Dashboard</button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md bg-primary text-white">Learning Path</button>
+<button class="px-4 py-1.5 text-sm font-medium rounded-md hover:bg-white/5 transition-colors">Skill Tree</button>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-white/5 border border-white/10 hover:bg-white/10">
+<span class="material-symbols-outlined text-white">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-white/5 border border-white/10 hover:bg-white/10">
+<span class="material-symbols-outlined text-white">account_circle</span>
+</button>
+</div>
+<div class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="High-fidelity futuristic user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zyhVbQafdv5K7EIjQb99x5XwzPtXSQm0p5SbznVrDeQZ_iMLWBNdkahyCcIYTBlgLfd_mSYiTNse2CtyBe7As7Ro6OvHy6UZKyyNa76o658OjaPHstkXOqc0qj4eEXNpG_22ZST8luF6odjJrzEzoiibENUiN8SCq93w3TLrTsO3oIvmb3_-Bz17gtFDPCjUfK5pGrlpXGlp7z5FvLEctNU0TBAIXVyG9FCddwfB2YBArSbtVjeT0FLo0hyM3wM7bgW73KAF6v4b"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col md:flex-row p-6 gap-6 max-w-7xl mx-auto w-full">
+<!-- Main Path Visualization -->
+<div class="flex-1 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">Your <span class="text-primary">Learning</span> Path</h1>
+<p class="text-slate-400 max-w-xl">Master the AI frontier through your personalized training journey. Each node unlocks new capabilities in the Sentinel Core.</p>
+</div>
+<!-- Path Map Layout -->
+<div class="relative flex flex-col items-center py-12 px-4 gap-12">
+<!-- Progress Line Background -->
+<div class="absolute w-1 top-0 bottom-0 path-line rounded-full opacity-30"></div>
+<!-- Module: Foundations (Completed) -->
+<div class="relative w-full flex justify-center group">
+<div class="liquid-glass p-6 rounded-xl w-full max-w-md flex items-center gap-6 border-accent-green/30 ring-2 ring-accent-green/20">
+<div class="size-16 rounded-full bg-accent-green/20 flex items-center justify-center border-2 border-accent-green shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+<span class="material-symbols-outlined text-accent-green text-3xl">verified</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-xl text-white">Foundations</h3>
+<span class="text-[10px] uppercase tracking-widest bg-accent-green/20 text-accent-green px-2 py-1 rounded">Completed</span>
+</div>
+<p class="text-sm text-slate-400 mt-1">Core principles of neural architecture and data ingestion.</p>
+</div>
+</div>
+</div>
+<!-- Module: Advanced Neural Networks (In Progress) -->
+<div class="relative w-full flex justify-center group">
+<div class="liquid-glass p-6 rounded-xl w-full max-w-md flex items-center gap-6 border-primary/50 ring-4 ring-primary/10">
+<div class="size-16 rounded-full bg-primary/20 flex items-center justify-center border-2 border-primary shadow-[0_0_25px_rgba(137,90,246,0.5)]">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-xl text-white">Advanced Neural Nets</h3>
+<span class="text-[10px] uppercase tracking-widest bg-primary text-white px-2 py-1 rounded">Active</span>
+</div>
+<div class="mt-2 w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<p class="text-xs text-primary mt-2">65% Processed • 4 sub-modules left</p>
+</div>
+</div>
+</div>
+<!-- Milestone Node: Sentinel Certification -->
+<div class="relative w-full flex justify-center">
+<div class="z-10 bg-background-dark border-2 border-primary rounded-full p-2 shadow-[0_0_30px_rgba(137,90,246,0.3)]">
+<div class="bg-primary/10 rounded-full px-6 py-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">emoji_events</span>
+<span class="text-sm font-bold text-white uppercase tracking-tighter">Sentinel Core Certification</span>
+</div>
+</div>
+</div>
+<!-- Module: Optimization (Locked) -->
+<div class="relative w-full flex justify-center opacity-60 grayscale-[0.5]">
+<div class="liquid-glass p-6 rounded-xl w-full max-w-md flex items-center gap-6">
+<div class="size-16 rounded-full bg-slate-800 flex items-center justify-center border-2 border-slate-700">
+<span class="material-symbols-outlined text-slate-500 text-3xl">lock</span>
+</div>
+<div class="flex-1 text-slate-400">
+<h3 class="font-bold text-xl">Optimization Protocols</h3>
+<p class="text-sm mt-1">Hyperparameter tuning and resource allocation.</p>
+</div>
+</div>
+</div>
+<!-- Module: Ethical AI (Locked) -->
+<div class="relative w-full flex justify-center opacity-40 grayscale">
+<div class="liquid-glass p-6 rounded-xl w-full max-w-md flex items-center gap-6">
+<div class="size-16 rounded-full bg-slate-800 flex items-center justify-center border-2 border-slate-700">
+<span class="material-symbols-outlined text-slate-500 text-3xl">lock</span>
+</div>
+<div class="flex-1 text-slate-400">
+<h3 class="font-bold text-xl">Ethical Frameworks</h3>
+<p class="text-sm mt-1">Safety alignment and bias mitigation protocols.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="w-full md:w-80 flex flex-col gap-6">
+<!-- Progress Stats Card -->
+<div class="liquid-glass p-6 rounded-xl flex flex-col gap-6">
+<div>
+<h4 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Current Status</h4>
+<div class="flex items-center gap-4">
+<div class="size-14 rounded-full border-4 border-primary border-t-accent-green flex items-center justify-center bg-background-dark">
+<span class="text-lg font-bold text-white">65%</span>
+</div>
+<div>
+<p class="text-white font-bold text-lg">Neural Architect</p>
+<p class="text-primary text-xs font-medium tracking-tight">Level 14 Mastery</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between text-xs">
+<span class="text-slate-400 uppercase">Training Hours</span>
+<span class="text-white font-mono">142.5h</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-400 uppercase">Tokens Mapped</span>
+<span class="text-white font-mono">1.2M</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-400 uppercase">Global Rank</span>
+<span class="text-accent-green font-mono">#412</span>
+</div>
+</div>
+</div>
+<!-- Next Goal Card -->
+<div class="bg-primary/10 border border-primary/30 p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 text-primary opacity-20 group-hover:scale-125 transition-transform">
+<span class="material-symbols-outlined text-6xl">track_changes</span>
+</div>
+<h4 class="text-primary text-xs font-bold uppercase tracking-widest mb-3 relative z-10">Next Milestone</h4>
+<p class="text-white font-bold text-xl mb-2 relative z-10">Model Fusion Specialist</p>
+<p class="text-slate-300 text-sm mb-4 relative z-10">Complete the Advanced Neural Networks module to unlock cross-model training capabilities.</p>
+<button class="w-full bg-primary hover:bg-primary/80 text-white font-bold py-3 rounded-lg text-sm transition-all shadow-lg shadow-primary/20 relative z-10">
+                        Continue Training
+                    </button>
+</div>
+<!-- Leaderboard Hint -->
+<div class="liquid-glass p-6 rounded-xl">
+<h4 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Active Peer Hubs</h4>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-accent-green/20 border border-accent-green/40 overflow-hidden">
+<img alt="Peer Avatar" data-alt="Futuristic user avatar small" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPRScq23vNH2k7FnSWxFbd0uVJIqC5Wh49kq5H6rD3uwsluSL9B43SOgZ3o8z4Nr-6TH5suIix3f0K_tdY3JfQXsR9s-nZDuzs9-_ESRGrMTRS9Rg4-2_vS-aS5W0g5UvgD9K27iBG11lmqb-iL6Iv044SZ1dcL7Z9cGM7kJsHkRtXamnd14kBcIKev1JGPsaf32r2JY5krViRGjHuRA7X2oTY8l5nqIncSWVG6xiuP4gawrDxjls0aRck-A-FBK8O2Ymk7MU83tej"/>
+</div>
+<div class="flex-1">
+<p class="text-white text-xs font-medium">Cyber_Vortex</p>
+<p class="text-[10px] text-slate-500">Advanced NNs - 88%</p>
+</div>
+<span class="material-symbols-outlined text-accent-green text-sm">bolt</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/20 border border-primary/40 overflow-hidden">
+<img alt="Peer Avatar" data-alt="Futuristic user avatar small secondary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4ue-s3Aj2GtPNxPjzWZ1uoBhKn5xw-TISUPOTUl4xyB_0U1XUIqClypibtwy2G0K0dVnZnVWW-VRp7CbGVMLDgaZ1qblr5GqURzRKshJgs_0wwiftOIVq18aT9PcjLz8WGfh8fP8V_ZSi-NlMXSQBae5U-c0_j-PwRq5Xozw1zJ1FE844k6zfbNvRJdzJnl1X4O42g7sunmxGnYMbfju2tb6dId5uvCd5NINoRCuxFK2XF6jkJHott9PHvHTSlBQKgz1A4Lcv7goJ"/>
+</div>
+<div class="flex-1">
+<p class="text-white text-xs font-medium">Nexus_Core</p>
+<p class="text-[10px] text-slate-500">Foundations - 100%</p>
+</div>
+<span class="material-symbols-outlined text-primary text-sm">done_all</span>
+</div>
+</div>
+<button class="w-full mt-6 text-slate-400 hover:text-white text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+                        View Leaderboard <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</aside>
+</main>
+<!-- Footer Decoration -->
+<footer class="p-8 text-center">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-white/5">
+<div class="size-2 rounded-full bg-accent-green animate-pulse"></div>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest">Neural Link Synchronized</span>
+</div>
+</footer>
+</div>
+</body></html>

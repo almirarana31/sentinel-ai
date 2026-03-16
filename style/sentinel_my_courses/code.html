@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel - My Courses</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "secondary": "#10b981", // Green accent
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0f0a1a",
+                        "surface-dark": "#1b1429",
+                        "border-dark": "#2e2249",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .liquid-glass:hover {
+            border: 1px solid rgba(137, 90, 246, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-border-dark px-6 py-3 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/20 rounded-lg">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">Sentinel</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">My Courses</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Catalog</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Community</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64 relative">
+<div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="w-full h-full rounded-lg bg-surface-dark border-border-dark text-slate-100 focus:ring-1 focus:ring-primary focus:border-primary pl-10 text-sm font-normal" placeholder="Search courses..."/>
+</label>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark border border-border-dark text-slate-100 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border-2 border-primary/50" data-alt="User profile avatar close up" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpwjJA_3ty71ybtQZiPAlJ_Mp9xXBmJsudh1wAbS0VzaW47wI44_Ktjbc532AriJ0-lcY3RUjazMVoHroMg_0K-QC4B6Ge783PThwEkTf0afJKBjfNmStu2W0tsVn-0MvPLimMrnsfCJmBeyQOIAsJMLwR0Zi1Mg-OqCrkc3fSqO_OQArwpZyOfXKva6s2xHec_0cJzHv5BKKVyyZUEr6xhGiwNdlHrQ3tDOWNHp5K_NUKbSuQ_Jm8mGEKZpPUlyVV5FkpvAXYf8PO");'>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-10">
+<!-- Hero Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="space-y-2">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase">Learning Journey</span>
+<h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-100">My Courses</h1>
+<p class="text-slate-400 max-w-lg">Level up your AI engineering skills with your personalized curriculum and progress tracking.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center bg-surface-dark p-4 rounded-xl border border-border-dark min-w-[120px]">
+<span class="text-2xl font-bold text-primary">12</span>
+<span class="text-[10px] uppercase tracking-tighter text-slate-400">Active</span>
+</div>
+<div class="flex flex-col items-center bg-surface-dark p-4 rounded-xl border border-border-dark min-w-[120px]">
+<span class="text-2xl font-bold text-secondary">85%</span>
+<span class="text-[10px] uppercase tracking-tighter text-slate-400">Avg Score</span>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-border-dark mb-8 gap-8">
+<button class="border-b-2 border-primary text-slate-100 pb-4 px-2 font-bold text-sm">In Progress</button>
+<button class="border-b-2 border-transparent text-slate-500 hover:text-slate-300 pb-4 px-2 font-medium text-sm transition-all">Completed</button>
+<button class="border-b-2 border-transparent text-slate-500 hover:text-slate-300 pb-4 px-2 font-medium text-sm transition-all">Saved</button>
+</div>
+<!-- Course Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Course Card 1 -->
+<div class="liquid-glass rounded-xl overflow-hidden group">
+<div class="h-40 bg-cover bg-center relative" data-alt="Neural network visualization background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhrhrzoES_2-cUssZRN7UBND2pt1EE3p21DRvZpwxySSEyMJ3-mBbzq4VIZEjo6mOFR_BZBu33JtOglvhWNn0bZv8ZyOm_wPHfBZ9nAuKv0Gx5NZEKxSMsHhWxX8EAAjBIxMk2YFKM8XktWCloN_VfsqIZeAT8f_kmn2dk7rArh8qltw82xeja0byRsorkRd7GW2CpsNDOdeM5aRJFfaI-IrlNOqDWBUpLNGUD2hVhCo6oXj2s3Bg95AsNNpdI4Ffx_zL6E7CGn9Xf');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-primary/20 text-primary-light border border-primary/30 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Advanced</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="space-y-1">
+<h3 class="text-lg font-bold text-slate-100 group-hover:text-primary transition-colors">Advanced Neural Networks</h3>
+<p class="text-sm text-slate-400">Module 4: Backpropagation Deep Dive</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-secondary font-bold">72%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 72%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex -space-x-2">
+<div class="size-6 rounded-full border border-background-dark bg-slate-700 flex items-center justify-center text-[10px] font-bold">+14k students</div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+                                Continue <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="liquid-glass rounded-xl overflow-hidden group">
+<div class="h-40 bg-cover bg-center relative" data-alt="Digital brain concept art" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmRpicDyXQs6ShN2V9oiVG7okkt1uD_IOxNMW5TTiOV_8kucomyt527HUTm9VG-yPYAiXjrbbKx62z1Ct7_CqujVFeHxo9IcEwKDoOdfXkXSzlsGR6CSGFZEwZL-WZvoqcgtqm44vXB92meKEyLagoTvp-ozJj-0sCWa4iW-KTchx_yZxRTWT8KERIItd3arXK23il_R53BDmLN_-NBvckNrxT-6GPHQMniCa0DAMyX0U107JZO_YXk8x8NHdO0LW2XLkzk5Oj3M0c');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-secondary/20 text-secondary border border-secondary/30 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Intermediate</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="space-y-1">
+<h3 class="text-lg font-bold text-slate-100 group-hover:text-primary transition-colors">NLP with Transformers</h3>
+<p class="text-sm text-slate-400">Module 2: Attention Mechanisms</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-secondary font-bold">45%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 4h left
+                            </span>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+                                Continue <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="liquid-glass rounded-xl overflow-hidden group">
+<div class="h-40 bg-cover bg-center relative" data-alt="Abstract cyber circuit pattern" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCS_z6vmBDflUiNzYI4guvogJV4Oz8rhojWafif_leGPHpzq2jFHHqfILgjEbYmGb0Fgo_XPCG-QSzY2rcS5rzGDnbbfX999sBML-cRWhhYR1Y5U99KrxnCnmSjpmZSbreGpNkeS1RnU51ruHnvNmRyE2kUFVSP3X2sCA1Ca_z6vxhxsWaq1EtynEWtLsIzyC4vXmxAKVPZXAMzqEdzrg6OY8DtXfxFL933nb12ok47-l4WackjLDvS4xUzfgwjf9raEsghqNEBVTad');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Specialization</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="space-y-1">
+<h3 class="text-lg font-bold text-slate-100 group-hover:text-primary transition-colors">AI Security &amp; Ethics</h3>
+<p class="text-sm text-slate-400">Module 8: Adversarial Attacks</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-secondary font-bold">92%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 92%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-xs text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified</span> Almost done
+                            </span>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+                                Continue <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 4 -->
+<div class="liquid-glass rounded-xl overflow-hidden group">
+<div class="h-40 bg-cover bg-center relative" data-alt="Robotics and human hand touch" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBH2hNqybkgx-hw-C-5BMpFCKTTUIZrxX4mbnt-X8mopyCu4Np8pl69v6CnbSw7_VPNtL44cY0Kly9kLYNuBFXD2rnAdsMD6capIF3okb3Uv-uOHiGlmghmdSOgisW3e7melV_QrIhsCcesGpSnJW7_18OqIqgdi_tq6jKYpzaB5xs25mPY82ugibixCHQnLoev2G3pCTr4lyVAkPsE17UeYT6DE6FZLT-cfZayQ5_0Lr7V63yZcsEtRyoeu18stdAIDwP0720H8aWA');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-primary/20 text-primary-light border border-primary/30 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Foundational</span>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="space-y-1">
+<h3 class="text-lg font-bold text-slate-100 group-hover:text-primary transition-colors">Reinforcement Learning</h3>
+<p class="text-sm text-slate-400">Module 1: Introduction to Agents</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-slate-400 font-medium">Progress</span>
+<span class="text-secondary font-bold">12%</span>
+</div>
+<div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 12%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex -space-x-1">
+<span class="material-symbols-outlined text-slate-500">group</span>
+<span class="text-xs text-slate-500 ml-2">New cohort started</span>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all">
+                                Continue <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Stats Sidebar-style section at bottom for mobile/next to grid for desktop -->
+<div class="mt-16 bg-surface-dark/50 rounded-2xl border border-border-dark p-8 flex flex-col lg:flex-row gap-8 items-center">
+<div class="flex-1 space-y-4">
+<h3 class="text-2xl font-bold text-slate-100">Weekly Achievement</h3>
+<p class="text-slate-400 text-sm">You have maintained a 5-day learning streak. Keep it up to earn the "Sentinel Scholar" badge.</p>
+<div class="flex gap-2">
+<div class="h-8 w-8 rounded bg-primary flex items-center justify-center font-bold text-xs">M</div>
+<div class="h-8 w-8 rounded bg-primary flex items-center justify-center font-bold text-xs">T</div>
+<div class="h-8 w-8 rounded bg-primary flex items-center justify-center font-bold text-xs">W</div>
+<div class="h-8 w-8 rounded bg-primary flex items-center justify-center font-bold text-xs">T</div>
+<div class="h-8 w-8 rounded bg-primary flex items-center justify-center font-bold text-xs">F</div>
+<div class="h-8 w-8 rounded bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-600">S</div>
+<div class="h-8 w-8 rounded bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-600">S</div>
+</div>
+</div>
+<div class="flex gap-10">
+<div class="text-center">
+<p class="text-3xl font-black text-secondary">24.5h</p>
+<p class="text-[10px] uppercase text-slate-500 font-bold tracking-widest mt-1">Total Time</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-black text-primary">15</p>
+<p class="text-[10px] uppercase text-slate-500 font-bold tracking-widest mt-1">Badges Earned</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-border-dark bg-background-dark py-10 px-6">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-50">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="text-sm font-bold tracking-tight">SENTINEL AI</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Support Center</a>
+</div>
+<p class="text-xs text-slate-600">© 2024 Sentinel Learning Systems. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel Exam Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                        "terminal-green": "#00ff41",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .terminal-grid {
+            background-image: radial-gradient(circle, #895af622 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 65, 0.1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-primary/20 px-8 py-4 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight uppercase">Sentinel <span class="text-primary">System</span></h2>
+</div>
+<div class="flex-1 max-w-2xl px-12">
+<div class="flex items-center gap-4">
+<span class="text-xs font-mono text-primary uppercase tracking-widest">Progress</span>
+<div class="flex-1 h-3 bg-primary/10 rounded-full overflow-hidden border border-primary/20">
+<div class="h-full bg-terminal-green shadow-[0_0_10px_#00ff41]" style="width: 65%;"></div>
+</div>
+<span class="text-xs font-mono text-terminal-green">65%</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="text-[10px] uppercase text-slate-500 font-bold">Time Remaining</span>
+<div class="flex gap-1 font-mono text-xl text-primary font-bold">
+<span class="bg-primary/10 px-2 py-0.5 rounded border border-primary/30">14</span>
+<span class="animate-pulse">:</span>
+<span class="bg-primary/10 px-2 py-0.5 rounded border border-primary/30">52</span>
+</div>
+</div>
+<div class="size-10 rounded-full border-2 border-primary/50 p-0.5">
+<div class="size-full rounded-full bg-primary/20 bg-cover bg-center" data-alt="User avatar profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAF3gcwTC4AAIKEMLxiGFIhZPfoqjgdKYF31NAQzjVov7-RmnimERs3j2_qryH-TKzTGWcVl7KELkhjx0KRtd23WgNdMsFB_1VCK2Br0k_Q4AGlUTOxj-URRWr3vD2HDGAULTByqqrRYlZhKaxtZumge0dU5mso8uvi8tOJv5D3IxgSc9YPY_DB-Pg-5sMRGbYyH1tsGLPvpokjCvmLCWTFw6wFpCJZ1H99-hH3S86QjKmbSjTA2Xmwkns4WiWMApc7RBSyhow6mEqU')"></div>
+</div>
+</div>
+</header>
+<main class="flex h-[calc(100vh-73px)] w-full">
+<!-- Question Navigation Sidebar -->
+<aside class="w-72 border-r border-primary/10 bg-background-light dark:bg-background-dark/80 p-6 flex flex-col gap-6 overflow-y-auto">
+<div>
+<h3 class="text-xs font-bold uppercase text-slate-500 mb-4 tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">dashboard</span>
+                    Question Matrix
+                </h3>
+<div class="grid grid-cols-5 gap-2">
+<!-- Completed Questions -->
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">01</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">02</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">03</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">04</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">05</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">06</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">07</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">08</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">09</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">10</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">11</div>
+<div class="flex aspect-square items-center justify-center rounded border border-terminal-green bg-terminal-green/10 text-terminal-green text-xs font-mono cursor-pointer hover:bg-terminal-green/20">12</div>
+<!-- Current Question -->
+<div class="flex aspect-square items-center justify-center rounded border-2 border-primary bg-primary/20 text-white text-xs font-mono font-bold shadow-[0_0_15px_rgba(137,90,246,0.5)]">13</div>
+<!-- Future Questions -->
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer hover:border-primary/50 transition-colors">14</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">15</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">16</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">17</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">18</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">19</div>
+<div class="flex aspect-square items-center justify-center rounded border border-primary/20 bg-primary/5 text-slate-500 text-xs font-mono cursor-pointer">20</div>
+</div>
+</div>
+<div class="mt-auto p-4 rounded-xl liquid-glass border border-primary/30">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="text-sm font-bold">Proctor Status</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-terminal-green animate-pulse"></div>
+<span class="text-xs text-slate-400 font-mono">Live Monitoring Active</span>
+</div>
+</div>
+</aside>
+<!-- Core Quiz Content -->
+<section class="flex-1 p-8 overflow-y-auto terminal-grid bg-background-light dark:bg-[#0a0812] relative">
+<div class="max-w-4xl mx-auto h-full flex flex-col gap-8">
+<!-- Terminal Question Area -->
+<div class="liquid-glass rounded-xl p-8 border-2 border-primary/30 shadow-2xl relative overflow-hidden group">
+<div class="scanline"></div>
+<div class="flex items-center justify-between mb-6 border-b border-primary/20 pb-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-mono text-primary">[SYSTEM.QUEST_13]</span>
+<span class="text-[10px] font-mono text-slate-500">TYPE: ANALYSIS_DEEP_LEARNING</span>
+</div>
+<span class="text-xs font-mono text-slate-400 uppercase tracking-tighter">Priority: High</span>
+</div>
+<div class="font-mono space-y-4">
+<div class="flex gap-2">
+<span class="text-terminal-green opacity-70">root@sentinel:~$</span>
+<span class="text-white">fetch --current-question</span>
+</div>
+<div class="text-2xl md:text-3xl font-bold leading-relaxed text-slate-100 pl-4 border-l-2 border-primary/50">
+                            Identify the primary cause of vanishing gradients in deep networks.
+                        </div>
+<div class="flex gap-2 animate-pulse">
+<span class="text-terminal-green opacity-70">root@sentinel:~$</span>
+<span class="bg-primary/40 px-1 text-white">_</span>
+</div>
+</div>
+</div>
+<!-- Answer Options Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Option A -->
+<button class="liquid-glass group relative flex items-start gap-4 p-5 rounded-xl border border-primary/20 text-left transition-all hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(137,90,246,0.15)] overflow-hidden">
+<span class="flex-none w-8 h-8 rounded border border-primary/50 bg-primary/5 flex items-center justify-center text-primary font-mono font-bold group-hover:bg-primary group-hover:text-white transition-all">A</span>
+<div class="space-y-1">
+<p class="text-slate-300 group-hover:text-white font-medium leading-snug">The use of non-linear activation functions like Sigmoid or Tanh in very deep layers.</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Weight update impact: High</p>
+</div>
+<div class="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+</div>
+</button>
+<!-- Option B -->
+<button class="liquid-glass group relative flex items-start gap-4 p-5 rounded-xl border border-primary/20 text-left transition-all hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(137,90,246,0.15)] overflow-hidden">
+<span class="flex-none w-8 h-8 rounded border border-primary/50 bg-primary/5 flex items-center justify-center text-primary font-mono font-bold group-hover:bg-primary group-hover:text-white transition-all">B</span>
+<div class="space-y-1">
+<p class="text-slate-300 group-hover:text-white font-medium leading-snug">Excessive learning rate causing the loss function to overshoot the global minimum.</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Weight update impact: Variable</p>
+</div>
+</button>
+<!-- Option C -->
+<button class="liquid-glass group relative flex items-start gap-4 p-5 rounded-xl border border-primary/20 text-left transition-all hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(137,90,246,0.15)] overflow-hidden">
+<span class="flex-none w-8 h-8 rounded border border-primary/50 bg-primary/5 flex items-center justify-center text-primary font-mono font-bold group-hover:bg-primary group-hover:text-white transition-all">C</span>
+<div class="space-y-1">
+<p class="text-slate-300 group-hover:text-white font-medium leading-snug">Insufficient training data resulting in poor generalization of the model architecture.</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Weight update impact: Low</p>
+</div>
+</button>
+<!-- Option D -->
+<button class="liquid-glass group relative flex items-start gap-4 p-5 rounded-xl border border-primary/20 text-left transition-all hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(137,90,246,0.15)] overflow-hidden">
+<span class="flex-none w-8 h-8 rounded border border-primary/50 bg-primary/5 flex items-center justify-center text-primary font-mono font-bold group-hover:bg-primary group-hover:text-white transition-all">D</span>
+<div class="space-y-1">
+<p class="text-slate-300 group-hover:text-white font-medium leading-snug">The implementation of dropout layers with an excessively high probability rate.</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Weight update impact: Critical</p>
+</div>
+</button>
+</div>
+<!-- Action Footer -->
+<div class="mt-auto flex items-center justify-between border-t border-primary/20 pt-8 pb-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/40 text-primary font-bold hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Previous Question
+                    </button>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary/10 border border-primary/30 text-white font-medium hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">flag</span>
+                            Mark for Review
+                        </button>
+<button class="flex items-center gap-2 px-8 py-3 rounded-lg bg-primary text-white font-bold hover:brightness-110 shadow-lg shadow-primary/20 transition-all uppercase tracking-wide">
+                            Submit Answer
+                            <span class="material-symbols-outlined">bolt</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Background Elements -->
+<div class="fixed top-1/4 -right-20 size-96 bg-primary/10 blur-[120px] rounded-full -z-10 pointer-events-none"></div>
+<div class="fixed bottom-0 -left-20 size-[500px] bg-primary/5 blur-[150px] rounded-full -z-10 pointer-events-none"></div>
+</body></html>

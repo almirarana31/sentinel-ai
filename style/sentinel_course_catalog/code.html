@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel AI - Course Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "accent": "#10b981",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0a0812",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(46, 34, 73, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+        }
+        .liquid-accent {
+            background: linear-gradient(135deg, rgba(137, 90, 246, 0.4) 0%, rgba(16, 185, 129, 0.2) 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            border-color: rgba(137, 90, 246, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(137, 90, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 glass-panel border-b border-primary/20 px-4 md:px-10 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">shield_with_heart</span>
+<h2 class="text-slate-100 text-xl font-bold tracking-tight">Sentinel AI</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-100 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Courses</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors text-sm font-medium" href="#">Models</a>
+<a class="text-slate-400 hover:text-slate-100 transition-colors text-sm font-medium" href="#">Datasets</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="relative hidden sm:block w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full bg-slate-800/50 border-primary/20 rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-primary focus:border-primary text-white placeholder:text-slate-500" placeholder="Quick search..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-slate-800/50 text-slate-100 hover:bg-primary/20 transition-all relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-accent rounded-full"></span>
+</button>
+<div class="size-9 rounded-full bg-primary/30 border border-primary/50 flex items-center justify-center overflow-hidden">
+<img class="size-full object-cover" data-alt="User profile avatar male" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv6JI6R3o0Kv60LCMthr8VovEPGqm3RgkadUuQ8saHJY5D1J0QzbkBPtahXYjhiClO6FpACXix5uCws5sX74uPbQXCuy8xg6PhOSxaiVL5kuRqDyD0DmZRALKY_NooVeohC9cu69enXZmh9NaF8WvtlMiBChTdqB1k5eZ9BxyFkzzMN94d9GBb_JPKLYUQ4xhWbL0aUW4lbfzh9xflAPsR3vfR2cP8bFqaBQUkG3h86yXoLYWgkNMSzFUyvqIqvG8AETi7Bm-ah3DE"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 md:px-6 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Filters -->
+<aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
+<div class="glass-panel rounded-xl p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">filter_list</span>
+<h3 class="font-bold text-lg text-slate-100">Filters</h3>
+</div>
+<!-- Search Mobile (Visible only on small screens) -->
+<div class="sm:hidden mb-6">
+<input class="w-full bg-slate-800/50 border-primary/20 rounded-lg py-2 px-3 text-sm focus:ring-primary focus:border-primary text-white" placeholder="Search courses..." type="text"/>
+</div>
+<div class="space-y-6">
+<!-- Difficulty -->
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Difficulty</p>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-primary/30 bg-transparent text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Beginner</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-primary/30 bg-transparent text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Intermediate</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-primary/30 bg-transparent text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Advanced</span>
+</label>
+</div>
+</div>
+<!-- Topic -->
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Topic</p>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-full text-xs font-medium bg-primary text-white">Neural Networks</button>
+<button class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Robotics</button>
+<button class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">Analytics</button>
+<button class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">CV</button>
+<button class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700">NLP</button>
+</div>
+</div>
+<!-- Duration -->
+<div>
+<p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Duration</p>
+<div class="space-y-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded-full border-primary/30 bg-transparent text-primary focus:ring-primary" name="duration" type="radio"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">Under 2 hours</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded-full border-primary/30 bg-transparent text-primary focus:ring-primary" name="duration" type="radio"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">2 - 5 hours</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded-full border-primary/30 bg-transparent text-primary focus:ring-primary" name="duration" type="radio"/>
+<span class="text-sm text-slate-300 group-hover:text-white transition-colors">5+ hours</span>
+</label>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-2.5 rounded-lg border border-primary/50 text-primary text-sm font-bold hover:bg-primary/10 transition-colors">
+                        Clear All
+                    </button>
+</div>
+<!-- Ad/Promo Liquid Style -->
+<div class="liquid-accent rounded-xl p-6 border border-primary/30">
+<h4 class="text-white font-bold mb-2">Upgrade to Pro</h4>
+<p class="text-slate-200 text-xs leading-relaxed mb-4">Get unlimited access to advanced neural modeling simulations.</p>
+<button class="w-full py-2 bg-accent text-background-dark font-bold text-xs rounded-lg uppercase tracking-widest">Enroll Now</button>
+</div>
+</aside>
+<!-- Course Catalog Grid -->
+<div class="flex-1">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">Course Catalog</h1>
+<p class="text-slate-400">Showing 24 specialized AI training modules</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg glass-panel text-slate-300 text-sm font-medium border-primary/20">
+<span class="material-symbols-outlined text-lg">sort</span>
+                            Most Recent
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Course Card 1 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Abstract neural network architecture lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX915CM68tznxzNOWtm3DdiVdV53FaVxW7A14Gs6mKzYFQYoekp0nRYS2lQL8f8t-Kv9hiGfK5exVUqkhCv72o2z5vI_WtvLUVQC3xeKlpLJCLU_xtOHA79T4Y13il_JOXkAz1ACp9NL3qriOooINGgwQyzl6t1WKP6V8MJ3I77qGrfGXbUKpsj3If0MYKCWEKMLb904LZxcaFednWjnn_eZjdF-E4iDMiGDuzhubCVlIKYFVppzFtRMEVr5Z_yPngxEtt9yj3qH0V"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent text-[10px] font-bold rounded uppercase">Advanced</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">Neural Architecture</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Deep dive into building multi-layered perceptual engines and synaptic weight optimization.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 6.5h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 4.9</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Data visualization predictive systems dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3DWO_vjmbnfNCW1w0s2KgbsaDlnpASUL_CItM2rTOoGXa1Jhj1l8KgbxRUON7iMWgI84GSc-SfNttNpqri8nqJfDT8XokOJ7CBLuIy-HLF6VRRVDMfzMPJiPxPw0wVquGOpG0bzhUdQEEGucgeqdpXuVoiILWESR039tDtJG5luW6LkVqF87hjHBFMNtDs5mHoKonJowsD6Kcf-QCxNtN5MfUAdysd0CvSHfta62DG-J38N8vFdCB3DxwLjkLD6_WmGoZsKOj0ftM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[10px] font-bold rounded uppercase">Intermediate</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">Predictive Systems</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Mastering time-series analysis and stochastic forecasting for complex global markets.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 4.2h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 4.7</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Robotic lens vision system interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp1iMufOLI7OoQt-ocIyYKWbcaEYvtr8oPlUa2AR4nqNQjm9QezCFXfehuZnIeojF-8nygQ9bluGr_7IBayy8zI_sLwM_x-vNNTSKZjin1U9hpjbrqNY61HJbguuJeGxuUqdF8pVfT4ekqkwAwSO5MSXXd4-Sou84oWo3n1ULuOIBJiGS5W62NDHXCqVYyF9ZTp28Fj5J4lxguj8kI9VzNKjutYamj9fPy8Z3FKdnkN3tpVJQWH1J0KU5fJlWGNXGJ0UuM2o_lGsrJ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent text-[10px] font-bold rounded uppercase">Advanced</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">Robotic Vision</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Implementing computer vision for autonomous drone swarms and precision mechanical arms.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 8.0h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 5.0</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 4 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Futuristic laboratory technology blue aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgWEDYT6igiPtn7qshvZuAoaQCb8t1vqSBVtBXyLHznDx9flHi1ZLMjG29NzGStqIjZLwEdifx_cAegnlCMOjONP05xBGGZsE_dE8-Rbp2jchIwEkIvLTRuIgVhSlP_oZzU6PQJS6a9jzwCVlE8LS34ufXWwQ4sANBtmEnBuR8a4GZAImVPhrASgs2-DOsiR3Ol4zwQUvPFVufW9ooKDnWntI4ZepNiV7OvANd3FQX840bz35S7TjnNJFAplRMPeS7Y1uGgzL-Ga0h"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-slate-700/50 backdrop-blur-md border border-slate-600/30 text-slate-100 text-[10px] font-bold rounded uppercase">Beginner</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">LLM Fine-tuning</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Learn the basics of LoRA and QLoRA for adapting large models to specific domain tasks.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 3.5h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 4.8</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 5 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="High tech server room purple lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHwX9bGmU2z7vsqHnPvKLRaBkprhfKUWId4kHlYVjjsdRwPQgbCtwASPzm2HqGaNwy1UvLabcAHa7C21iIQTEN3kQD-RwTrVtVcodoI9a5dt5oWNwwjeiVpvEpZIK5lsuT5tbiOLhKDJAXDchVqMriunFtQ4UXJfLYTBMad6OpO784phVcD0_ALy7nE8F9Nyb-skY6goXJin5lIuIwT-7-_zhCN3fugZqqRFKGnTF8zSJqcqEIy0vRkov_K9V9hUcEF-pPz7f_Ij50"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[10px] font-bold rounded uppercase">Intermediate</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">Edge Computing AI</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Optimizing model performance for low-power IoT devices and edge infrastructure.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 5.1h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 4.6</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 6 -->
+<div class="glass-panel rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col group">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Humanoid robot hand holding circuit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnARNvcnvJw5QUlpNr96qkpfGqiwGNvzPW3u9PUw1P4YWpveODodV8mW-MXsE5qM8Zug5qfL9ZyBYvo1qr0yw1NOeMcsjB2zv4boNta8BhgEArSGfLdlp3BMz8DCWjqOMF6-1MSMVT729KpuIpSmz5Gh8btuuvqS3gfyzUawDw7cgjw50-wKRkZsntCjVQ_Ca8OFGJQNTeY_27GsVnZLZ4AGvoK6gteVxuvVYtCxpVUPMyN02ggGv3Cio-AfFRpnhbyFWCu46rqJh3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent text-[10px] font-bold rounded uppercase">Advanced</span>
+</div>
+<div class="p-5 flex-1 flex flex-col">
+<h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">Bio-morphic AI</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4">Mimicking biological neural processing for extreme efficiency in robotics.</p>
+<div class="mt-auto pt-4 border-t border-primary/10 flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-slate-400">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 12h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">star</span> 4.9</span>
+</div>
+<button class="size-8 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center items-center gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg glass-panel text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-lg glass-panel text-slate-400 hover:text-white transition-colors">2</button>
+<button class="size-10 flex items-center justify-center rounded-lg glass-panel text-slate-400 hover:text-white transition-colors">3</button>
+<span class="text-slate-500 mx-1">...</span>
+<button class="size-10 flex items-center justify-center rounded-lg glass-panel text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-primary/10 glass-panel py-10 px-4">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3 text-primary/60">
+<span class="material-symbols-outlined text-2xl">shield_with_heart</span>
+<span class="font-bold tracking-tight">Sentinel AI Training</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary" href="#">Help Center</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">API Docs</a>
+</div>
+<p class="text-xs text-slate-600">© 2024 Sentinel Intelligence Platforms. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel AI Dashboard</title>
+<!-- Google Fonts: Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8b5cf6', // Purple-500
+            secondary: '#10b981', // Emerald-500
+            surface: '#0a0a0c',
+            glass: 'rgba(255, 255, 255, 0.03)',
+            'glass-border': 'rgba(255, 255, 255, 0.1)',
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          borderRadius: {
+            'custom': '8px',
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="liquid-glass-effects">
+    body {
+      background-color: #0a0a0c;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .liquid-border {
+      position: relative;
+    }
+    .liquid-border::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #8b5cf6;
+      transition: width 0.3s ease;
+    }
+    .liquid-border:hover::after {
+      width: 100%;
+    }
+    .progress-glow {
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+    }
+    .accent-glow-green {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+<!-- BEGIN: Navigation -->
+<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-surface/80 backdrop-blur-md" data-purpose="main-navigation">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-custom flex items-center justify-center shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.333 9-6.03 9-11.623 0-1.31-.21-2.57-.598-3.75A11.952 11.952 0 0112 2.714z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+</div>
+<span class="text-xl font-bold tracking-tight uppercase">Sentinel</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-sm font-medium text-white transition-colors liquid-border pb-1" href="#">Dashboard</a>
+<a class="text-sm font-medium text-gray-400 hover:text-primary transition-colors liquid-border pb-1" href="#">Missions</a>
+<a class="text-sm font-medium text-gray-400 hover:text-primary transition-colors liquid-border pb-1" href="#">Models</a>
+<a class="text-sm font-medium text-gray-400 hover:text-primary transition-colors liquid-border pb-1" href="#">Lab</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-400 hover:text-white transition-colors" data-purpose="notifications">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+<div class="h-8 w-8 rounded-full border border-primary/50 overflow-hidden" data-purpose="user-avatar">
+<img alt="User Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe4eAV3tNE8n7DSdA77ptyxCOy1aegLGsg5RhAZCb75OD800lR51NymKULRj52ipsVnle3D8RcWQ9VmX_HaeM_UqBx_a3_bPX2Y4l_trNhfY9ERprnwEWdhgHt6RCmuJDui7K7avQJ7PsNN_utIrs7RClfjg97D8p2IVZfcPKyMkOZeSlLAUpi_rbYvfRhQJGPod67fHeKd938Fjy8VoQFO3w0UNYqhoHKl-mtyVy58SJ4N73ZpA5ZDd0qh1OaJxqX9rNFYidaEVto"/>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- END: Navigation -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BEGIN: Header Section -->
+<header class="mb-10">
+<h1 class="text-3xl font-bold mb-2">Welcome back, Specialist</h1>
+<p class="text-gray-400">Sentinel nodes are synchronized. System health is optimal.</p>
+</header>
+<!-- END: Header Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- BEGIN: Current Progress -->
+<section class="lg:col-span-2 space-y-6" data-purpose="training-status">
+<h2 class="text-lg font-semibold flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+          Current Progress
+        </h2>
+<div class="glass-card p-6 rounded-custom overflow-hidden relative">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-xl font-medium">Predictive Maintenance V4</h3>
+<p class="text-sm text-gray-400">Module 4: Anomaly Detection Logic</p>
+</div>
+<span class="px-3 py-1 bg-secondary/20 text-secondary text-xs font-bold rounded-full border border-secondary/30">78% COMPLETE</span>
+</div>
+<!-- Progress Bar Container -->
+<div class="w-full bg-white/5 h-3 rounded-full overflow-hidden mb-6">
+<div class="h-full bg-gradient-to-r from-primary to-secondary shadow-[0_0_15px_rgba(139,92,246,0.6)]" style="width: 78%"></div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="p-4 rounded-custom bg-white/5 border border-white/5">
+<p class="text-xs text-gray-500 uppercase">Time Spent</p>
+<p class="text-lg font-bold">12.5h</p>
+</div>
+<div class="p-4 rounded-custom bg-white/5 border border-white/5">
+<p class="text-xs text-gray-500 uppercase">Tasks Done</p>
+<p class="text-lg font-bold">24/30</p>
+</div>
+<div class="p-4 rounded-custom bg-white/5 border border-white/5">
+<p class="text-xs text-gray-500 uppercase">Avg Score</p>
+<p class="text-lg font-bold">92%</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Current Progress -->
+<!-- BEGIN: AI Model Performance -->
+<section class="space-y-6" data-purpose="performance-metrics">
+<h2 class="text-lg font-semibold">AI Model Performance</h2>
+<div class="glass-card p-6 rounded-custom h-full">
+<div class="space-y-6">
+<div class="aspect-square relative flex items-center justify-center" data-purpose="chart-placeholder">
+<!-- Simple SVG representation of a circular performance chart -->
+<svg class="w-40 h-40 transform -rotate-90">
+<circle class="text-white/5" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="88" stroke-width="8" style="stroke: #8b5cf6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-bold">82%</span>
+<span class="text-[10px] text-gray-400 uppercase tracking-widest">Accuracy</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-gray-400">Latent Response</span>
+<span class="font-mono">14ms</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-gray-400">Data Throughput</span>
+<span class="font-mono text-secondary">4.2 GB/s</span>
+</div>
+<button class="w-full py-3 rounded-custom bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-sm font-medium">
+                View Detailed Metrics
+              </button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AI Model Performance -->
+<!-- BEGIN: Latest Missions -->
+<section class="lg:col-span-3 space-y-6" data-purpose="mission-log">
+<div class="flex justify-between items-center">
+<h2 class="text-lg font-semibold">Latest Missions</h2>
+<a class="text-sm text-primary hover:underline" href="#">View all missions</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Mission Card 1 -->
+<div class="glass-card p-5 rounded-custom flex flex-col justify-between">
+<div>
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded border border-primary/50 text-primary">HARD</span>
+</div>
+<h4 class="font-bold mb-1">Turbine Optimization</h4>
+<p class="text-sm text-gray-400 mb-4 line-clamp-2">Train a reinforcement learning agent to optimize wind turbine pitch control.</p>
+</div>
+<button class="w-full py-2 bg-primary text-white rounded-custom text-sm font-bold hover:brightness-110 transition-all shadow-[0_4px_12px_rgba(139,92,246,0.3)]">
+              Resume Mission
+            </button>
+</div>
+<!-- Mission Card 2 -->
+<div class="glass-card p-5 rounded-custom flex flex-col justify-between">
+<div>
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-secondary/20 rounded-lg flex items-center justify-center">
+<svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded border border-secondary/50 text-secondary">MEDIUM</span>
+</div>
+<h4 class="font-bold mb-1">Quality Inspection AI</h4>
+<p class="text-sm text-gray-400 mb-4 line-clamp-2">Implement computer vision for real-time defect detection on production lines.</p>
+</div>
+<button class="w-full py-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-custom text-sm font-bold transition-all">
+              Start Mission
+            </button>
+</div>
+<!-- Mission Card 3 -->
+<div class="glass-card p-5 rounded-custom flex flex-col justify-between">
+<div>
+<div class="flex justify-between mb-4">
+<div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
+<svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<span class="text-[10px] px-2 py-0.5 rounded border border-white/20 text-gray-400">EASY</span>
+</div>
+<h4 class="font-bold mb-1">Energy Forecasting</h4>
+<p class="text-sm text-gray-400 mb-4 line-clamp-2">Develop a time-series model to predict factory peak energy consumption hours.</p>
+</div>
+<button class="w-full py-2 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-custom text-sm font-bold transition-all">
+              Start Mission
+            </button>
+</div>
+</div>
+</section>
+<!-- END: Latest Missions -->
+</div>
+</main>
+<!-- BEGIN: Floating Lab Status -->
+<div class="fixed bottom-6 right-6" data-purpose="floating-status">
+<div class="glass-card px-4 py-3 rounded-full flex items-center gap-3 border-secondary/30">
+<div class="relative">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+<div class="absolute inset-0 w-2 h-2 bg-secondary rounded-full animate-ping"></div>
+</div>
+<span class="text-xs font-medium text-gray-300">Lab Server: <span class="text-secondary font-bold uppercase">Online</span></span>
+</div>
+</div>
+<!-- END: Floating Lab Status -->
+<script data-purpose="canvas-bg-enhancement">
+    console.log('Sentinel AI Academy UI Initialized');
+  </script>
+</body></html>

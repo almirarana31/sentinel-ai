@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel | Achievements</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#895af6",
+                        "accent-green": "#0bda6f",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#0a0812",
+                        "glass": "rgba(46, 34, 73, 0.4)",
+                        "glass-border": "rgba(137, 90, 246, 0.2)"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .liquid-glass {
+            background: linear-gradient(135deg, rgba(137, 90, 246, 0.1) 0%, rgba(137, 90, 246, 0.05) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 90, 246, 0.2);
+        }
+        .badge-glow {
+            filter: drop-shadow(0 0 8px rgba(137, 90, 246, 0.5));
+        }
+        .green-glow {
+            filter: drop-shadow(0 0 8px rgba(11, 218, 111, 0.4));
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 px-6 md:px-10 py-3 bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">Sentinel</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-center gap-8">
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Missions</a>
+<a class="text-primary border-b-2 border-primary pb-1 text-sm font-medium" href="#">Leaderboard</a>
+<a class="text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Academy</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary border border-primary/20">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-primary/50 overflow-hidden">
+<img alt="User profile" class="h-full w-full object-cover" data-alt="Cybersecurity expert professional male profile portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnP1bGc5Cpxl0rqxZdgZ9MRp8Ay1Y3bmXy56xpyAxsO1iFpwfgfzkbDUvRSj7vYz1tOji90CogcEZw5VHOwW1Bw0Im3D7OTdqGkNmHCx1hd_eyRRnW2eahWefIUSJFKR_rZOUib8hgJOn8sDw9IqtdhaB_bRymOsoPIzS97EKP0S6DyiMlMEd_LEX-DclQaXy1RUHIh7_Y4rNiLZGpOslAjUDNHN1rTo3W5axaJI_g8xqd4ABfXK2bdm0Tiep0wKpMRl3Wgts1M0U5"/>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1400px] mx-auto w-full p-6 md:p-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 space-y-8">
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<h1 class="text-4xl md:text-5xl font-black text-slate-100 tracking-tight">Your Achievements</h1>
+<p class="text-slate-400 text-lg">Industrial Intelligence Operations • Season 4</p>
+</div>
+<div class="flex gap-4">
+<div class="liquid-glass rounded-lg p-4 min-w-[140px] text-center">
+<p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Badges</p>
+<p class="text-3xl font-bold text-accent-green">24</p>
+<span class="text-[10px] text-accent-green/80">+3 this week</span>
+</div>
+<div class="liquid-glass rounded-lg p-4 min-w-[140px] text-center border-l-4 border-l-primary">
+<p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Rank</p>
+<p class="text-xl font-bold text-slate-100">Elite Architect</p>
+<span class="text-[10px] text-primary/80">Top 2% Globally</span>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<div class="flex items-center justify-between border-b border-primary/10 pb-2">
+<h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-green">verified</span>
+                                Earned Badges
+                            </h2>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+<div class="liquid-glass rounded-xl p-6 flex flex-col items-center gap-4 group transition-all hover:scale-[1.02]">
+<div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center badge-glow border border-primary/40">
+<span class="material-symbols-outlined text-4xl text-primary">neurology</span>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100">Neural Architect</p>
+<p class="text-[10px] text-slate-500 uppercase mt-1">Industrial AI</p>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex flex-col items-center gap-4 group transition-all hover:scale-[1.02]">
+<div class="w-16 h-16 rounded-full bg-accent-green/20 flex items-center justify-center green-glow border border-accent-green/40">
+<span class="material-symbols-outlined text-4xl text-accent-green">shield_lock</span>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100">Data Sentinel</p>
+<p class="text-[10px] text-slate-500 uppercase mt-1">Cyber Defense</p>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex flex-col items-center gap-4 group transition-all hover:scale-[1.02]">
+<div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center badge-glow border border-primary/40">
+<span class="material-symbols-outlined text-4xl text-primary">precision_manufacturing</span>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100">Optimization Pro</p>
+<p class="text-[10px] text-slate-500 uppercase mt-1">Efficiency</p>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 flex flex-col items-center gap-4 group transition-all hover:scale-[1.02]">
+<div class="w-16 h-16 rounded-full bg-accent-green/20 flex items-center justify-center green-glow border border-accent-green/40">
+<span class="material-symbols-outlined text-4xl text-accent-green">security</span>
+</div>
+<div class="text-center">
+<p class="text-sm font-bold text-slate-100">Firewall Master</p>
+<p class="text-[10px] text-slate-500 uppercase mt-1">Network</p>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-6">
+<div class="flex items-center justify-between border-b border-primary/10 pb-2">
+<h2 class="text-xl font-bold text-slate-400 flex items-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                                Locked Achievements
+                            </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="liquid-glass bg-white/5 opacity-70 rounded-xl p-5 flex items-center gap-5 border border-white/5">
+<div class="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center grayscale">
+<span class="material-symbols-outlined text-3xl text-slate-500">hub</span>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex justify-between items-center">
+<p class="text-sm font-bold text-slate-300">Swarm Intelligence</p>
+<span class="text-xs text-primary">90%</span>
+</div>
+<div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full w-[90%] shadow-[0_0_8px_rgba(137,90,246,0.6)]"></div>
+</div>
+<p class="text-[10px] text-slate-500 italic">Deploy 50 synchronized AI agents in the sandbox</p>
+</div>
+</div>
+<div class="liquid-glass bg-white/5 opacity-70 rounded-xl p-5 flex items-center gap-5 border border-white/5">
+<div class="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center grayscale">
+<span class="material-symbols-outlined text-3xl text-slate-500">model_training</span>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex justify-between items-center">
+<p class="text-sm font-bold text-slate-300">Quantum Trainer</p>
+<span class="text-xs text-accent-green">45%</span>
+</div>
+<div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-accent-green h-full w-[45%] shadow-[0_0_8px_rgba(11,218,111,0.6)]"></div>
+</div>
+<p class="text-[10px] text-slate-500 italic">Complete level 10 Quantum simulation module</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<aside class="lg:col-span-4 space-y-8">
+<div class="liquid-glass rounded-xl p-6 space-y-6 sticky top-24">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">history</span>
+<h3 class="text-lg font-bold text-slate-100">Recent Milestones</h3>
+</div>
+<div class="space-y-6">
+<div class="relative pl-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-[2px] before:bg-primary/20">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<p class="text-xs text-slate-500 mb-1">2 hours ago</p>
+<p class="text-sm font-medium text-slate-200">Unlocked <span class="text-primary">Optimization Pro</span></p>
+<p class="text-[11px] text-slate-500 mt-1">Industrial process efficiency reached 98% in Mission 12.</p>
+</div>
+<div class="relative pl-8 before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-[2px] before:bg-primary/20">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-accent-green/20 border border-accent-green/40 flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-accent-green"></div>
+</div>
+<p class="text-xs text-slate-500 mb-1">Yesterday</p>
+<p class="text-sm font-medium text-slate-200">New Rank Achieved: <span class="text-accent-green">Elite Architect</span></p>
+<p class="text-[11px] text-slate-500 mt-1">Crossed the 5,000 XP threshold in the global Academy rankings.</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<p class="text-xs text-slate-500 mb-1">3 days ago</p>
+<p class="text-sm font-medium text-slate-200">Earned <span class="text-primary">Data Sentinel</span></p>
+<p class="text-[11px] text-slate-500 mt-1">Successfully blocked 100% of synthetic intrusion attempts.</p>
+</div>
+</div>
+<div class="pt-4 border-t border-primary/10">
+<div class="liquid-glass bg-primary/5 rounded-lg p-4 flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">emoji_events</span>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-100">Next Big Award</p>
+<p class="text-[10px] text-slate-400">Grandmaster AI Specialist</p>
+<div class="w-24 bg-slate-800 rounded-full h-1 mt-2">
+<div class="bg-primary h-full w-[15%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="liquid-glass rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-8xl text-primary">school</span>
+</div>
+<h4 class="text-lg font-bold text-slate-100 relative z-10">Academy Progress</h4>
+<p class="text-sm text-slate-400 mt-2 relative z-10">Your training paths are currently 74% complete. Continue to unlock exclusive badges.</p>
+<button class="mt-4 bg-primary text-slate-100 px-6 py-2 rounded-lg text-sm font-bold w-full relative z-10 hover:bg-primary/80 transition-all">Go to Academy</button>
+</div>
+</aside>
+</div>
+</main>
+<footer class="mt-auto border-t border-primary/10 py-8 px-10 text-center">
+<p class="text-slate-500 text-xs">© 2024 Sentinel Industrial Intelligence Systems • Protocol v4.0.2</p>
+</footer>
+</div>
+</body></html>
