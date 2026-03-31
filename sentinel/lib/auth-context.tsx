@@ -5,6 +5,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  role: "admin" | "user";
   level: number;
   xp: number;
   nextLevelXp: number;
@@ -19,7 +20,7 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (params?: { email?: string; password?: string; name?: string }) => Promise<LoginResult>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -45,6 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     id: "user_123",
     email: "almira@gmail.com",
     name: "Alex Trainee",
+    role: "admin",
     level: 9,
     xp: 1250,
     nextLevelXp: 2000,
@@ -66,6 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         id: parsed.id ?? mockUser.id,
         email: parsed.email ?? mockUser.email,
         name: parsed.name ?? mockUser.name,
+        role: parsed.role === "admin" ? "admin" : "user",
         level: parsed.level ?? mockUser.level,
         xp: parsed.xp ?? mockUser.xp,
         nextLevelXp: parsed.nextLevelXp ?? mockUser.nextLevelXp,
@@ -77,6 +80,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setLoading(false);
   }, []);
+
+  const clearLocalSession = () => {
+    setUser(null);
+    setToken(null);
+    sessionStorage.removeItem(SESSION_USER_KEY);
+    sessionStorage.removeItem(SESSION_TOKEN_KEY);
+  };
 
   const login = async (params?: { email?: string; password?: string; name?: string }): Promise<LoginResult> => {
     const email = params?.email ?? DEFAULT_EMAIL;
@@ -90,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     const data = (await res.json()) as
-      | { ok: true; token: string; user: { id: string; email: string; name: string } }
+      | { ok: true; token: string; user: { id: string; email: string; name: string; role: "admin" | "user" } }
       | { ok: false; requiresVerification: true; message: string }
       | { ok: false; error: string };
 
@@ -107,6 +117,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       id: data.user.id,
       email: data.user.email,
       name: data.user.name,
+      role: data.user.role,
     };
 
     setToken(data.token);
@@ -118,12 +129,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { ok: true };
   };
 
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    sessionStorage.removeItem(SESSION_USER_KEY);
-    sessionStorage.removeItem(SESSION_TOKEN_KEY);
-    router.push("/login");
+  const logout = async () => {
+    const currentToken = token ?? sessionStorage.getItem(SESSION_TOKEN_KEY);
+
+    try {
+      if (currentToken) {
+        await fetch("/api/auth/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentToken}`,
+          },
+          body: JSON.stringify({ token: currentToken }),
+          keepalive: true,
+        });
+      }
+    } catch (error) {
+      console.warn("Safe logout fallback: failed to revoke server session", error);
+    } finally {
+      clearLocalSession();
+      router.push("/login");
+    }
   };
 
   return (

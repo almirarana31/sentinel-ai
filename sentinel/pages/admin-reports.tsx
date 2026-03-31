@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
+import { AdminOnlyScreen } from "@/components/auth/admin-only-screen"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -45,6 +46,15 @@ export default function AdminReportsPage() {
         title="Compliance Reports Locked"
         description="Start a demo session to preview compliance reports, or sign in to continue."
         onStartDemo={login}
+      />
+    )
+  }
+
+  if (user.role !== "admin") {
+    return (
+      <AdminOnlyScreen
+        title="Compliance Reports Locked"
+        description="Only admins can access the reporting area."
       />
     )
   }
@@ -148,4 +158,3 @@ export default function AdminReportsPage() {
     </div>
   )
 }
-

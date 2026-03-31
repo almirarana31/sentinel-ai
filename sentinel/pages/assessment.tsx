@@ -236,7 +236,7 @@ export default function AssessmentPage() {
                 <Button
                   variant="outline"
                   className="h-11 px-5 font-black uppercase tracking-widest text-[11px]"
-                  onClick={() => router.push(`/course-overview?id=${encodeURIComponent(courseId)}`)}
+                  onClick={() => router.push(`/my-courses?course=${encodeURIComponent(courseId)}`)}
                 >
                   Back to Course
                 </Button>
@@ -254,4 +254,3 @@ export default function AssessmentPage() {
     </div>
   )
 }
-

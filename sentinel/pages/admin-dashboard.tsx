@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LockedScreen } from "@/components/auth/locked-screen";
+import { AdminOnlyScreen } from "@/components/auth/admin-only-screen";
 import { 
   Users, 
   CheckCircle2, 
@@ -91,6 +92,15 @@ export default function AdminDashboard() {
         title="Enterprise Command Locked"
         description="Start a demo session to view the enterprise dashboard, or sign in to continue."
         onStartDemo={login}
+      />
+    );
+  }
+
+  if (user.role !== "admin") {
+    return (
+      <AdminOnlyScreen
+        title="Admin Dashboard Locked"
+        description="Your account is signed in, but it does not have admin access."
       />
     );
   }

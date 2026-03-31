@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
+import { AdminOnlyScreen } from "@/components/auth/admin-only-screen"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -39,6 +40,15 @@ export default function AdminUsersPage() {
         title="User Management Locked"
         description="Start a demo session to preview user management, or sign in to continue."
         onStartDemo={login}
+      />
+    )
+  }
+
+  if (user.role !== "admin") {
+    return (
+      <AdminOnlyScreen
+        title="User Management Locked"
+        description="Only admins can access user management."
       />
     )
   }
@@ -143,4 +153,3 @@ export default function AdminUsersPage() {
     </div>
   )
 }
-

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageBackButton } from "@/components/navigation/page-back-button"
 
 export default function VerifyEmailPage() {
   const router = useRouter()
@@ -20,6 +21,7 @@ export default function VerifyEmailPage() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 p-6 flex items-center justify-center">
       <div className="w-full max-w-md space-y-6">
+        <PageBackButton fallbackHref="/signup" />
         <Card className="shadow-none">
           <CardContent className="p-6 space-y-4">
             <h1 className="text-2xl font-black uppercase tracking-tighter italic">Email Verification</h1>

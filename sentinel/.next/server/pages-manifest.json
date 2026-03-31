@@ -2,17 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/my-courses": "pages/my-courses.js",
-  "/dashboard": "pages/dashboard.js",
-  "/login": "pages/login.js",
-  "/api/auth/login": "pages/api/auth/login.js",
-  "/lesson-view": "pages/lesson-view.js",
-  "/post-lesson-summary": "pages/post-lesson-summary.js",
-  "/course-overview": "pages/course-overview.js",
-  "/learning-path": "pages/learning-path.js",
-  "/leaderboard": "pages/leaderboard.js",
-  "/achievements": "pages/achievements.js",
-  "/admin-dashboard": "pages/admin-dashboard.js",
-  "/certifications": "pages/certifications.js",
-  "/catalog": "pages/catalog.js"
+  "/home": "pages/home.js",
+  "/catalog": "pages/catalog.js",
+  "/dashboard": "pages/dashboard.js"
 }

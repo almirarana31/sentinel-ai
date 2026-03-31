@@ -1,6 +1,7 @@
 ﻿import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
+import { PageBackButton } from "@/components/navigation/page-back-button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ShieldCheck, FileText, LogOut, LayoutGrid } from "lucide-react"
@@ -24,6 +25,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 p-6">
       <div className="max-w-3xl mx-auto pt-10 space-y-6">
+        <PageBackButton fallbackHref="/home" />
         <div className="space-y-1">
           <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tighter italic">
             Profil
@@ -46,6 +48,22 @@ export default function ProfilePage() {
                 Nama
               </div>
               <div className="text-sm font-bold">{user.name}</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+                Role
+              </div>
+              <div className="inline-flex items-center gap-2">
+                <span
+                  className={`px-2 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest ${
+                    user.role === "admin"
+                      ? "border-[#BA7517]/30 bg-[#BA7517]/10 text-[#BA7517]"
+                      : "border-white/10 bg-white/60 dark:bg-white/5 text-muted-foreground"
+                  }`}
+                >
+                  {user.role}
+                </span>
+              </div>
             </div>
             <div className="space-y-1">
               <div className="text-xs font-black uppercase tracking-widest text-muted-foreground">

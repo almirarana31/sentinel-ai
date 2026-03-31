@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
+import { AdminOnlyScreen } from "@/components/auth/admin-only-screen"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -43,6 +44,15 @@ export default function AdminAssignmentsPage() {
         title="Course Assignment Locked"
         description="Start a demo session to preview course assignments, or sign in to continue."
         onStartDemo={login}
+      />
+    )
+  }
+
+  if (user.role !== "admin") {
+    return (
+      <AdminOnlyScreen
+        title="Course Assignment Locked"
+        description="Only admins can assign training to users and teams."
       />
     )
   }
@@ -196,4 +206,3 @@ export default function AdminAssignmentsPage() {
     </div>
   )
 }
-

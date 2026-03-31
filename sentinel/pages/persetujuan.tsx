@@ -3,20 +3,26 @@ import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { useConsent, ConsentPreferences } from "@/lib/consent-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
+import { PageBackButton } from "@/components/navigation/page-back-button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const mockGetConsentCollectionPointResponse = {
-  code_collection_point: "cp_sentinel_demo_001",
-  consents: [
-    { code_consent: "MARKETING", label: "Marketing" },
-    { code_consent: "BIO_METRIK", label: "Bio Metrik" },
-    { code_consent: "DATA_ANAK", label: "Data Anak" },
-  ],
-} as const
+type ConsentCollectionPointResponse =
+  | {
+      ok: true
+      code_collection_point: string
+      name: string
+      consents: { code_consent: string; label: string }[]
+    }
+  | {
+      ok: false
+      error: string
+    }
 
-function prefKeyFromCode(code: (typeof mockGetConsentCollectionPointResponse.consents)[number]["code_consent"]) {
+const DEFAULT_COLLECTION_POINT_CODE = "cp_sentinel_demo_001"
+
+function prefKeyFromCode(code: string) {
   if (code === "MARKETING") return "marketing"
   if (code === "BIO_METRIK") return "biometrics"
   return "childData"
@@ -54,11 +60,41 @@ export default function PersetujuanPage() {
     biometrics: false,
     childData: false,
   })
+  const [collectionPoint, setCollectionPoint] = useState<ConsentCollectionPointResponse | null>(null)
+  const [apiStatus, setApiStatus] = useState<"idle" | "loading" | "error">("idle")
+  const [apiError, setApiError] = useState("")
 
   useEffect(() => {
     if (!ready) return
     setPrefs(consent?.preferences ?? { marketing: false, biometrics: false, childData: false })
   }, [ready, consent])
+
+  useEffect(() => {
+    let cancelled = false
+    setApiStatus("loading")
+    fetch(`/api/user/consents/${DEFAULT_COLLECTION_POINT_CODE}`)
+      .then((res) => res.json() as Promise<ConsentCollectionPointResponse>)
+      .then((data) => {
+        if (cancelled) return
+        if (!data.ok) {
+          setApiStatus("error")
+          setApiError(data.error || "Failed to load consent collection point")
+          return
+        }
+        setCollectionPoint(data)
+        setApiStatus("idle")
+        setApiError("")
+      })
+      .catch((error) => {
+        if (cancelled) return
+        setApiStatus("error")
+        setApiError(error instanceof Error ? error.message : "Failed to load consent collection point")
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   if (loading) {
     return (
@@ -75,6 +111,11 @@ export default function PersetujuanPage() {
   return (
     <div className="min-h-screen bg-black/95 p-6">
       <div className="max-w-xl mx-auto pt-10 space-y-6">
+        <PageBackButton
+          fallbackHref="/profile"
+          variant="ghost"
+          className="border border-white/10 bg-white/[0.03] text-white/75 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+        />
         <div className="space-y-1">
           <div className="text-[10px] font-black uppercase tracking-widest text-white/60">
             Session
@@ -92,15 +133,27 @@ export default function PersetujuanPage() {
                 Persetujuan
               </h1>
               <p className="text-sm text-white/60 font-medium">
-                Pilih persetujuan sesuai response Get Consent Collection Point.
+                Pilih persetujuan sesuai response backend Get Consent Collection Point.
               </p>
               <div className="text-[10px] font-black uppercase tracking-widest text-white/45 pt-1">
-                code_collection_point: {mockGetConsentCollectionPointResponse.code_collection_point}
+                code_collection_point: {collectionPoint?.ok ? collectionPoint.code_collection_point : DEFAULT_COLLECTION_POINT_CODE}
               </div>
             </div>
 
+            {apiStatus === "loading" && (
+              <div className="rounded-[12px] border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/60">
+                Loading consent definitions from API...
+              </div>
+            )}
+
+            {apiStatus === "error" && (
+              <div className="rounded-[12px] border border-[#E24B4A]/30 bg-[#E24B4A]/10 px-4 py-4 text-sm font-medium text-white/80">
+                Failed to load consent definitions: {apiError}
+              </div>
+            )}
+
             <div className="rounded-[12px] border border-white/10 bg-white/5 px-4 py-2">
-              {mockGetConsentCollectionPointResponse.consents.map((item, idx) => {
+              {(collectionPoint?.ok ? collectionPoint.consents : []).map((item, idx, items) => {
                 const key = prefKeyFromCode(item.code_consent)
                 return (
                   <div key={item.code_consent}>
@@ -109,7 +162,7 @@ export default function PersetujuanPage() {
                       checked={prefs[key]}
                       onCheckedChange={(next) => setPrefs((p) => ({ ...p, [key]: next }))}
                     />
-                    {idx !== mockGetConsentCollectionPointResponse.consents.length - 1 && (
+                    {idx !== items.length - 1 && (
                       <div className="h-px bg-white/10" />
                     )}
                   </div>
@@ -121,9 +174,11 @@ export default function PersetujuanPage() {
               className={cn(
                 "w-full font-black uppercase tracking-widest text-xs h-12 shadow-lg shadow-[#7F77DD]/20"
               )}
+              disabled={!collectionPoint || !collectionPoint.ok}
               onClick={() => {
+                if (!collectionPoint || !collectionPoint.ok) return
                 const payload = {
-                  consents: mockGetConsentCollectionPointResponse.consents.map((item) => {
+                  consents: collectionPoint.consents.map((item) => {
                     const key = prefKeyFromCode(item.code_consent)
                     return {
                       code_consent: item.code_consent,
@@ -133,7 +188,7 @@ export default function PersetujuanPage() {
                 }
 
                 console.log(
-                  `[POST] /user/consents/${mockGetConsentCollectionPointResponse.code_collection_point}`,
+                  `[POST] /user/consents/${collectionPoint.code_collection_point}`,
                   {
                     headers: {
                       Authorization: token ? `Bearer ${token}` : "(missing token)",
@@ -143,7 +198,7 @@ export default function PersetujuanPage() {
                 )
 
                 if (token) {
-                  fetch(`/api/user/consents/${mockGetConsentCollectionPointResponse.code_collection_point}`, {
+                  fetch(`/api/user/consents/${collectionPoint.code_collection_point}`, {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -162,9 +217,12 @@ export default function PersetujuanPage() {
               Submit
             </Button>
 
-            <Button variant="ghost" className="w-full text-white/75" onClick={() => router.back()}>
-              Kembali
-            </Button>
+            <PageBackButton
+              fallbackHref="/profile"
+              label="Kembali"
+              variant="ghost"
+              className="w-full border border-white/10 bg-white/[0.03] text-white/75 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+            />
           </CardContent>
         </Card>
       </div>

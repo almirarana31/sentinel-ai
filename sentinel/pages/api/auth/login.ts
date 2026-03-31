@@ -5,7 +5,7 @@ import { normalizeEmail, randomToken, sha256 } from "@/lib/auth/token-utils"
 import { sendEmail } from "@/lib/email/mailer"
 
 type LoginResponse =
-  | { ok: true; token: string; user: { id: string; email: string; name: string } }
+  | { ok: true; token: string; user: { id: string; email: string; name: string; role: "admin" | "user" } }
   | { ok: false; requiresVerification: true; message: string }
   | { ok: false; error: string }
 
@@ -51,11 +51,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       id: string
       email: string
       name: string | null
+      role: "admin" | "user" | null
       password_salt: string | null
       password_hash: string | null
       email_verified_at: string | null
     }>(
-      `SELECT id, email, name, password_salt, password_hash, email_verified_at::text
+      `SELECT id, email, name, role, password_salt, password_hash, email_verified_at::text
        FROM app_user
        WHERE email = $1
        LIMIT 1;`,
@@ -64,6 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     let userId: string
     let userName: string
+    let userRole: "admin" | "user" = "user"
     let verifiedNow = false
 
     if ((existing.rowCount ?? 0) === 0) {
@@ -75,11 +77,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const passwordHash = hashPassword(password, salt)
       userId = crypto.randomUUID()
       userName = name
+      userRole = "admin"
 
       await dbQuery(
-        `INSERT INTO app_user(id, email, name, password_salt, password_hash, email_verified_at)
-         VALUES ($1, $2, $3, $4, $5, now());`,
-        [userId, email, userName, salt, passwordHash]
+        `INSERT INTO app_user(id, email, name, role, password_salt, password_hash, email_verified_at)
+         VALUES ($1, $2, $3, $4, $5, $6, now());`,
+        [userId, email, userName, userRole, salt, passwordHash]
       )
 
       verifiedNow = true
@@ -87,6 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const u = existing.rows[0]!
       userId = u.id
       userName = u.name || name
+      userRole = u.role === "admin" ? "admin" : "user"
 
       if (!u.password_salt || !u.password_hash) {
         return res.status(400).json({ ok: false, error: "Password not set for this account" })
@@ -101,6 +105,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       if (!u.email_verified_at && isDemo) {
         await dbQuery(`UPDATE app_user SET email_verified_at = now() WHERE id = $1;`, [userId])
+        await dbQuery(`UPDATE app_user SET role = 'admin' WHERE id = $1;`, [userId])
+        userRole = "admin"
         verifiedNow = true
       } else {
         verifiedNow = Boolean(u.email_verified_at)
@@ -146,7 +152,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(200).json({
       ok: true,
       token: sessionToken,
-      user: { id: userId, email, name: userName },
+      user: { id: userId, email, name: userName, role: userRole },
     })
   } catch (err) {
     console.error("/api/auth/login error:", err)

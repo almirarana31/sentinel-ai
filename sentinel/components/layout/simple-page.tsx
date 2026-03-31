@@ -2,21 +2,24 @@ import { ReactNode } from "react"
 import { useRouter } from "next/router"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PageBackButton } from "@/components/navigation/page-back-button"
 import { useConsent } from "@/lib/consent-context"
 
 type SimplePageProps = {
   title: string
   description?: string
   children?: ReactNode
+  backHref?: string
 }
 
-export function SimplePage({ title, description, children }: SimplePageProps) {
+export function SimplePage({ title, description, children, backHref = "/" }: SimplePageProps) {
   const router = useRouter()
   const { openSettings } = useConsent()
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 p-6">
       <div className="max-w-3xl mx-auto pt-10 space-y-6">
+        <PageBackButton fallbackHref={backHref} />
         <div className="space-y-2">
           <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tighter italic">
             {title}

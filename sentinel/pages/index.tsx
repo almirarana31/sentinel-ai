@@ -15,6 +15,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useConsent } from "@/lib/consent-context";
+import { cn } from "@/lib/utils";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -167,7 +168,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-32">
+      <section id="features" className="py-32 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6 space-y-20">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <h2 className="text-4xl font-black uppercase tracking-tighter italic">Gamified Compliance. <br/>AI-Driven Excellence.</h2>
@@ -210,6 +211,192 @@ export default function LandingPage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Solutions */}
+      <section
+        id="solutions"
+        className="py-32 border-t border-zinc-100 dark:border-white/10 bg-zinc-50/60 dark:bg-white/[0.02] scroll-mt-24"
+      >
+        <div className="max-w-7xl mx-auto px-6 space-y-14">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="text-[10px] font-black text-[#7F77DD] uppercase tracking-[0.3em]">
+                Solutions
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic">
+                Built for Teams <br />that ship, fix, and comply.
+              </h2>
+              <p className="text-zinc-500 dark:text-zinc-300 font-medium">
+                Pick a lane and Sentinel adapts: learning paths, games, and audits—without changing your tools.
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button
+                variant="outline"
+                className="h-11 font-black uppercase tracking-widest text-[11px]"
+                onClick={() => router.push("/catalog")}
+              >
+                Browse Catalog
+              </Button>
+              <Button
+                className="h-11 font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#7F77DD]/20"
+                onClick={() => router.push("/dashboard")}
+              >
+                Open Demo <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Operations",
+                icon: <Zap className="h-6 w-6" />,
+                points: ["Predictive maintenance basics", "Incident drills", "Fast, game-like refreshers"],
+              },
+              {
+                title: "Safety",
+                icon: <Shield className="h-6 w-6" />,
+                points: ["SOP refresh cycles", "Role-based checklists", "Audit-friendly progress tracking"],
+              },
+              {
+                title: "Compliance",
+                icon: <Lock className="h-6 w-6" />,
+                points: ["Consent + policy training", "Assignments for teams", "Evidence trails and reporting"],
+              },
+            ].map((item) => (
+              <Card key={item.title} className="shadow-none border border-zinc-100 dark:border-white/10 bg-white dark:bg-white/[0.03]">
+                <CardContent className="p-8 space-y-6">
+                  <div className="h-12 w-12 rounded-2xl bg-[#7F77DD]/10 border border-[#7F77DD]/20 text-[#7F77DD] flex items-center justify-center">
+                    {item.icon}
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-black uppercase tracking-tight">{item.title}</h3>
+                    <ul className="space-y-2">
+                      {item.points.map((p) => (
+                        <li key={p} className="flex items-start gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-300">
+                          <CheckCircle2 className="h-4 w-4 text-[#1D9E75] mt-0.5 shrink-0" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Preview */}
+      <section id="pricing" className="py-32 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-6 space-y-14">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <div className="text-[10px] font-black text-[#7F77DD] uppercase tracking-[0.3em]">Pricing</div>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic">
+              Start small. Scale fast.
+            </h2>
+            <p className="text-zinc-500 dark:text-zinc-300 font-medium">
+              Preview plans here, then open the full pricing page for details.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Starter",
+                price: "$0",
+                tag: "Demo",
+                features: ["Demo dashboard access", "Mini-games + badges", "Hard-coded tutor (demo)"],
+                cta: "Try Demo",
+                onClick: () => router.push("/login"),
+                highlight: false,
+              },
+              {
+                name: "Team",
+                price: "$12",
+                tag: "Per seat / mo",
+                features: ["Assignments", "Reports + audit trail", "Course catalog access"],
+                cta: "See Pricing",
+                onClick: () => router.push("/pricing"),
+                highlight: true,
+              },
+              {
+                name: "Enterprise",
+                price: "Custom",
+                tag: "SLA",
+                features: ["SSO + governance", "Admin analytics", "Compliance integrations"],
+                cta: "Contact",
+                onClick: () => router.push("/contact-demo"),
+                highlight: false,
+              },
+            ].map((plan) => (
+              <Card
+                key={plan.name}
+                className={cn(
+                  "shadow-none border transition-colors overflow-hidden",
+                  plan.highlight
+                    ? "border-[#7F77DD]/30 bg-[#7F77DD]/[0.07]"
+                    : "border-zinc-100 dark:border-white/10 bg-white dark:bg-white/[0.03]"
+                )}
+              >
+                <CardContent className="p-8 space-y-6">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <div className="text-xs font-black uppercase tracking-widest text-zinc-500 dark:text-white/55">
+                        {plan.tag}
+                      </div>
+                      <div className="text-2xl font-black uppercase tracking-tight">{plan.name}</div>
+                    </div>
+                    {plan.highlight && (
+                      <div className="px-3 py-1 rounded-full bg-[#7F77DD] text-white text-[10px] font-black uppercase tracking-widest">
+                        Popular
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-end gap-2">
+                    <div className="text-4xl font-black italic tracking-tighter">{plan.price}</div>
+                    {plan.name === "Team" && (
+                      <div className="text-sm font-bold text-zinc-500 dark:text-white/55 mb-1">/ seat</div>
+                    )}
+                  </div>
+
+                  <ul className="space-y-2">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-300">
+                        <CheckCircle2 className="h-4 w-4 text-[#1D9E75] mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    className={cn(
+                      "w-full h-12 font-black uppercase tracking-widest text-xs shadow-lg",
+                      plan.highlight ? "shadow-[#7F77DD]/25" : "shadow-black/30"
+                    )}
+                    variant={plan.highlight ? "primary" : "outline"}
+                    onClick={plan.onClick}
+                  >
+                    {plan.cta}
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button
+              variant="ghost"
+              className="text-[#7F77DD] font-black uppercase tracking-widest text-xs"
+              onClick={() => router.push("/pricing")}
+            >
+              Open full pricing <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
           </div>
         </div>
       </section>
