@@ -55,9 +55,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const userId = crypto.randomUUID()
 
     await dbQuery(
-      `INSERT INTO app_user(id, email, name, role, password_salt, password_hash)
-       VALUES ($1, $2, $3, $4, $5, $6);`,
-      [userId, email, name.trim(), "user", salt, passwordHash]
+      `INSERT INTO app_user(id, email, name, password_salt, password_hash)
+       VALUES ($1, $2, $3, $4, $5);`,
+      [userId, email, name.trim(), salt, passwordHash]
     )
 
     const code = randomVerificationCode()

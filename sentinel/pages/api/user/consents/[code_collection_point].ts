@@ -3,20 +3,6 @@ import crypto from "node:crypto"
 import { ensureSchema, dbQuery } from "@/lib/db/pool"
 import { sha256 } from "@/lib/auth/token-utils"
 
-type ConsentDefinition = {
-  code_consent: string
-  label: string
-}
-
-type GetConsentCollectionPointResponse =
-  | {
-      ok: true
-      code_collection_point: string
-      name: string
-      consents: ConsentDefinition[]
-    }
-  | { ok: false; error: string }
-
 type PostConsentResponse = { ok: true } | { ok: false; error: string }
 
 function bearerToken(req: NextApiRequest) {
@@ -25,63 +11,26 @@ function bearerToken(req: NextApiRequest) {
   return match?.[1] || ""
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<GetConsentCollectionPointResponse | PostConsentResponse>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<PostConsentResponse>) {
+  if (req.method !== "POST") return res.status(405).json({ ok: false, error: "Method not allowed" })
+
   const code = String(req.query.code_collection_point || "")
   if (!code) return res.status(400).json({ ok: false, error: "Missing code_collection_point" })
-
-  await ensureSchema()
-
-  if (req.method === "GET") {
-    const collectionPoint = await dbQuery<{
-      code: string
-      name: string
-      consents_text: string
-    }>(
-      `
-    SELECT code, name, consents::text AS consents_text
-    FROM consent_collection_point
-    WHERE code = $1
-      AND is_active = true
-    LIMIT 1;
-    `,
-      [code]
-    )
-
-    const row = collectionPoint.rows[0]
-    if (!row) return res.status(404).json({ ok: false, error: "Consent collection point not found" })
-
-    let consents: ConsentDefinition[] = []
-    try {
-      consents = JSON.parse(row.consents_text) as ConsentDefinition[]
-    } catch {
-      return res.status(500).json({ ok: false, error: "Invalid consent collection point configuration" })
-    }
-
-    return res.status(200).json({
-      ok: true,
-      code_collection_point: row.code,
-      name: row.name,
-      consents,
-    })
-  }
-
-  if (req.method !== "POST") return res.status(405).json({ ok: false, error: "Method not allowed" })
 
   const token = bearerToken(req)
   if (!token) return res.status(401).json({ ok: false, error: "Missing Authorization Bearer token" })
 
+  await ensureSchema()
+
   const tokenHash = sha256(token)
   const sessionOut = await dbQuery<{ user_id: string }>(
     `
-      SELECT user_id
-      FROM app_session
-      WHERE token_hash = $1
-        AND expires_at > now()
-      ORDER BY created_at DESC
-      LIMIT 1;
+    SELECT user_id
+    FROM app_session
+    WHERE token_hash = $1
+      AND expires_at > now()
+    ORDER BY created_at DESC
+    LIMIT 1;
     `,
     [tokenHash]
   )
@@ -99,3 +48,4 @@ export default async function handler(
 
   return res.status(200).json({ ok: true })
 }
+

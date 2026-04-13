@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
-import { AdminOnlyScreen } from "@/components/auth/admin-only-screen"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { readConsentAudit, writeConsentAudit, ConsentAuditEntry } from "@/lib/consent-audit"
@@ -12,7 +11,6 @@ type ConsentLatestRow = {
   key: string
   name: string
   email: string
-  role: "admin" | "user"
   updatedAt: string
   codeCollectionPoint?: string
   marketing: boolean
@@ -29,18 +27,15 @@ function formatDate(iso: string) {
 
 export default function AdminConsentPage() {
   const router = useRouter()
-  const { user, token, loading, login } = useAuth()
+  const { user, loading, login } = useAuth()
   const [entries, setEntries] = useState<ConsentAuditEntry[]>([])
   const [dbRows, setDbRows] = useState<ConsentLatestRow[]>([])
   const [dbError, setDbError] = useState<string>("")
   const [query, setQuery] = useState("")
 
   const refresh = () => {
-    if (!user || user.role !== "admin") return
     setEntries(readConsentAudit().slice().reverse())
-    fetch("/api/admin/consents", {
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-    })
+    fetch("/api/admin/consents")
       .then((r) => r.json())
       .then((data: any) => {
         if (!data?.ok) {
@@ -56,10 +51,9 @@ export default function AdminConsentPage() {
             return Boolean(item?.is_agree)
           }
           return {
-            key: r.id || `${r.email}-${r.created_at}`,
+            key: r.email,
             name: r.name || "Unknown",
             email: r.email || "—",
-            role: r.role === "admin" ? "admin" : "user",
             updatedAt: r.created_at || "",
             codeCollectionPoint: r.code_collection_point,
             marketing: findAgree("MARKETING"),
@@ -77,9 +71,8 @@ export default function AdminConsentPage() {
   }
 
   useEffect(() => {
-    if (!user || user.role !== "admin") return
     refresh()
-  }, [user, token])
+  }, [])
 
   const latestRows = useMemo<ConsentLatestRow[]>(() => {
     const byKey = new Map<string, ConsentAuditEntry>()
@@ -93,7 +86,6 @@ export default function AdminConsentPage() {
         key,
         name: entry.actor?.name ?? "Unknown",
         email: entry.actor?.email ?? "—",
-        role: "user",
         updatedAt: entry.updatedAt,
         marketing: entry.preferences.marketing,
         biometrics: entry.preferences.biometrics,
@@ -113,8 +105,7 @@ export default function AdminConsentPage() {
       return (
         r.name.toLowerCase().includes(q) ||
         r.email.toLowerCase().includes(q) ||
-        r.source.toLowerCase().includes(q) ||
-        r.role.toLowerCase().includes(q)
+        r.source.toLowerCase().includes(q)
       )
     })
   }, [latestRows, dbRows, query])
@@ -137,15 +128,6 @@ export default function AdminConsentPage() {
     )
   }
 
-  if (user.role !== "admin") {
-    return (
-      <AdminOnlyScreen
-        title="Consent Management Locked"
-        description="Only admins can review the consents submitted by users."
-      />
-    )
-  }
-
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 p-6 pt-10">
       <div className="max-w-7xl mx-auto space-y-6 pb-20">
@@ -153,7 +135,7 @@ export default function AdminConsentPage() {
           <div className="space-y-2">
             <h1 className="text-3xl font-black uppercase tracking-tighter">Consent Management</h1>
             <p className="text-muted-foreground text-sm font-medium">
-              Admin view of all consent submissions stored in Postgres.
+              Demo admin view (local browser data). Showing latest consent per user.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -181,14 +163,14 @@ export default function AdminConsentPage() {
             <div>
               <CardTitle className="text-sm font-black uppercase tracking-widest">Consents</CardTitle>
               <CardDescription className="text-xs">
-                Loads all stored consent submissions from Postgres; falls back to local browser audit log only if needed.
+                Loads from Postgres if available; otherwise falls back to local browser audit log.
               </CardDescription>
             </div>
             <div className="w-full md:w-80">
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search name/email/role/source..."
+                placeholder="Search name/email/source..."
                 className="w-full h-10 px-3 rounded-[10px] border border-white/10 bg-white/70 dark:bg-white/5 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-white/35 text-sm font-medium outline-none focus:ring-2 focus:ring-[#7F77DD]/40"
               />
             </div>
@@ -200,7 +182,6 @@ export default function AdminConsentPage() {
                   <tr className="bg-white/60 dark:bg-white/5 border-b border-white/10">
                     <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">User</th>
                     <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Email</th>
-                    <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Role</th>
                     <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">Marketing</th>
                     <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">Biometrik</th>
                     <th className="p-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-center">Data Anak</th>
@@ -212,7 +193,7 @@ export default function AdminConsentPage() {
                 <tbody className="divide-y divide-white/10">
                   {filtered.length === 0 ? (
                     <tr>
-                      <td className="p-6 text-sm text-muted-foreground font-medium" colSpan={9}>
+                      <td className="p-6 text-sm text-muted-foreground font-medium" colSpan={8}>
                         {dbError
                           ? `DB not available: ${dbError}`
                           : "No consent records yet. Complete Persetujuan to generate entries."}
@@ -228,18 +209,6 @@ export default function AdminConsentPage() {
                           </div>
                         </td>
                         <td className="p-4 text-xs font-bold">{row.email}</td>
-                        <td className="p-4">
-                          <span
-                            className={cn(
-                              "inline-flex px-2 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest",
-                              row.role === "admin"
-                                ? "border-[#BA7517]/30 bg-[#BA7517]/10 text-[#BA7517]"
-                                : "border-white/10 bg-white/60 dark:bg-white/5 text-muted-foreground"
-                            )}
-                          >
-                            {row.role}
-                          </span>
-                        </td>
                         <td className="p-4 text-center">
                           <span className={cn("text-[10px] font-black uppercase tracking-widest", row.marketing ? "text-[#1D9E75]" : "text-[#E24B4A]")}>
                             {row.marketing ? "YES" : "NO"}

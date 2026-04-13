@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { CheckCircle2 } from "lucide-react"
-import { PageBackButton } from "@/components/navigation/page-back-button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
@@ -9,12 +8,7 @@ export default function PersetujuanSelesaiPage() {
 
   return (
     <div className="min-h-screen bg-black/95 p-6 flex items-center justify-center">
-      <div className="w-full max-w-xl space-y-4">
-        <PageBackButton
-          fallbackHref="/persetujuan"
-          variant="ghost"
-          className="border border-white/10 bg-white/[0.03] text-white/75 hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
-        />
+      <div className="w-full max-w-xl">
         <Card className="border border-white/10 bg-black/35 backdrop-blur-md">
           <CardContent className="p-8 text-center space-y-6">
             <div className="mx-auto h-16 w-16 rounded-full bg-[#1D9E75]/10 flex items-center justify-center">

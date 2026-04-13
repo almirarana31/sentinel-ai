@@ -1,48 +1,18 @@
 import { useRouter } from "next/router"
+import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/lib/auth-context"
-import { mockCourses } from "@/lib/mock-courses"
-import { ArrowRight, BookOpen, Lock, PlayCircle, Sparkles, CheckCircle2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Lock, BookOpen, Sparkles, ArrowRight } from "lucide-react"
 
-function getCourseCta(courseId: string, progress: number, status: string) {
-  if (status === "Completed") {
-    return {
-      label: "Review Course",
-      icon: CheckCircle2,
-      onClickPath: `/my-courses?course=${encodeURIComponent(courseId)}`,
-    }
-  }
-
-  if (progress > 0) {
-    return {
-      label: "Continue",
-      icon: PlayCircle,
-      onClickPath: `/my-courses?course=${encodeURIComponent(courseId)}`,
-    }
-  }
-
-  return {
-    label: "Open Course",
-    icon: ArrowRight,
-    onClickPath: `/my-courses?course=${encodeURIComponent(courseId)}`,
-  }
-}
+const mockCatalog = [
+  { id: "1", title: "Risk Assessment Fundamentals", category: "Compliance", lessons: 12, estTime: "2h 45m", xp: 1200 },
+  { id: "2", title: "Neural Network Architecture", category: "AI & ML", lessons: 18, estTime: "4h 10m", xp: 2500 },
+  { id: "3", title: "Industrial Safety Protocols", category: "Safety", lessons: 9, estTime: "1h 30m", xp: 800 },
+  { id: "4", title: "Data Ethics & Governance", category: "Compliance", lessons: 14, estTime: "3h 05m", xp: 1500 },
+]
 
 export default function CatalogPage() {
   const router = useRouter()
-  const { user, loading } = useAuth()
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-6 text-muted-foreground">
-        Loading catalog...
-      </div>
-    )
-  }
-
-  const isSignedIn = Boolean(user)
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 p-6 pt-12">
@@ -51,15 +21,13 @@ export default function CatalogPage() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7F77DD]/10 border border-[#7F77DD]/20 text-[10px] font-black text-[#7F77DD] uppercase tracking-[0.2em]">
               <Sparkles className="h-3 w-3" />
-              {isSignedIn ? "Course Catalog" : "Course Catalog Preview"}
+              Course Catalog Preview
             </div>
             <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic">
               Explore Courses
             </h1>
             <p className="text-muted-foreground font-medium max-w-2xl">
-              {isSignedIn
-                ? "Browse the full catalog and jump directly into your assigned or in-progress courses."
-                : "Browse a preview of the training catalog. Sign in to enroll, track progress, and earn certifications."}
+              Browse a preview of the training catalog. Sign in to enroll, track progress, and earn certifications.
             </p>
           </div>
 
@@ -67,139 +35,87 @@ export default function CatalogPage() {
             <Button
               variant="outline"
               className="h-11 px-5 font-black uppercase tracking-widest text-[11px]"
-              onClick={() => router.push(isSignedIn ? "/my-courses" : "/pricing")}
+              onClick={() => router.push("/pricing")}
             >
-              {isSignedIn ? "My Courses" : "View Pricing"}
+              View Pricing
             </Button>
             <Button
               className="h-11 px-5 font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#7F77DD]/20"
-              onClick={() => router.push(isSignedIn ? "/dashboard" : "/login")}
+              onClick={() => router.push("/login")}
             >
-              {isSignedIn ? "Go To Dashboard" : "Sign In"}
-              <ArrowRight className="h-4 w-4 ml-2" />
+              Sign In <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </div>
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {mockCourses.map((course) => {
-            const cta = getCourseCta(course.id, course.progress, course.status)
-            const CtaIcon = cta.icon
-
-            return (
-              <Card key={course.id} className="shadow-none border border-white/10">
-                <CardContent className="p-6 space-y-5">
-                  <div className="flex items-center justify-between">
-                    <div className="h-11 w-11 rounded-[14px] bg-white/70 dark:bg-white/5 border border-zinc-200/70 dark:border-white/10 flex items-center justify-center text-[#7F77DD]">
-                      <BookOpen className="h-5 w-5" />
-                    </div>
-                    <div
-                      className={cn(
-                        "inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest",
-                        isSignedIn ? "text-[#7F77DD]" : "text-white/70"
-                      )}
-                    >
-                      {isSignedIn ? (
-                        <>
-                          <Sparkles className="h-3.5 w-3.5" />
-                          {course.status}
-                        </>
-                      ) : (
-                        <>
-                          <Lock className="h-3.5 w-3.5" />
-                          Preview
-                        </>
-                      )}
-                    </div>
+          {mockCatalog.map((course) => (
+            <Card key={course.id} className="shadow-none border border-white/10">
+              <CardContent className="p-6 space-y-5">
+                <div className="flex items-center justify-between">
+                  <div className="h-11 w-11 rounded-[14px] bg-white/70 dark:bg-white/5 border border-zinc-200/70 dark:border-white/10 flex items-center justify-center text-[#7F77DD]">
+                    <BookOpen className="h-5 w-5" />
                   </div>
+                  <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white/70">
+                    <Lock className="h-3.5 w-3.5" />
+                    Preview
+                  </div>
+                </div>
 
-                  <div className="space-y-2">
+                <div className="space-y-2">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    {course.category}
+                  </div>
+                  <div className="text-lg font-black tracking-tight">{course.title}</div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
                     <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      {course.category}
+                      Lessons
                     </div>
-                    <div className="text-lg font-black tracking-tight">{course.title}</div>
+                    <div className="text-sm font-black">{course.lessons}</div>
                   </div>
-
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                        Lessons
-                      </div>
-                      <div className="text-sm font-black">{course.syllabus.length}</div>
+                  <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      Time
                     </div>
-                    <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                        Time
-                      </div>
-                      <div className="text-sm font-black">{course.estTime}</div>
-                    </div>
-                    <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
-                      <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                        XP
-                      </div>
-                      <div className="text-sm font-black">{course.xpValue}</div>
-                    </div>
+                    <div className="text-sm font-black">{course.estTime}</div>
                   </div>
+                  <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      XP
+                    </div>
+                    <div className="text-sm font-black">{course.xp}</div>
+                  </div>
+                </div>
 
-                  {isSignedIn ? (
-                    <div className="space-y-3">
-                      <div className="rounded-[12px] border border-white/10 bg-white/70 dark:bg-white/[0.03] p-3">
-                        <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          Progress
-                        </div>
-                        <div className="mt-2 flex items-center justify-between text-sm font-black">
-                          <span>{course.progress}%</span>
-                          <span className="text-muted-foreground">{course.timeRemaining}</span>
-                        </div>
-                        <div className="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
-                          <div
-                            className="h-full rounded-full bg-[#7F77DD]"
-                            style={{ width: `${course.progress}%` }}
-                          />
-                        </div>
-                      </div>
-                      <Button
-                        className="w-full h-11 font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#7F77DD]/20"
-                        onClick={() => router.push(cta.onClickPath)}
-                      >
-                        {cta.label}
-                        <CtaIcon className="h-4 w-4 ml-2" />
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={() => router.push("/login")}
-                        className="block text-center w-full rounded-[10px] bg-white/80 dark:bg-white/5 border border-zinc-200/70 dark:border-white/10 py-2 text-[11px] font-black uppercase tracking-widest text-zinc-900 dark:text-white hover:border-[#7F77DD]/40 hover:text-[#7F77DD] transition-colors"
-                      >
-                        Sign in to enroll
-                      </button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )
-          })}
+                <div className="pt-2">
+                  <Link
+                    href="/login"
+                    className="block text-center w-full rounded-[10px] bg-white/80 dark:bg-white/5 border border-zinc-200/70 dark:border-white/10 py-2 text-[11px] font-black uppercase tracking-widest text-zinc-900 dark:text-white hover:border-[#7F77DD]/40 hover:text-[#7F77DD] transition-colors"
+                  >
+                    Sign in to enroll
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </section>
 
         <Card className="shadow-none border border-white/10">
           <CardContent className="p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="space-y-1">
-              <div className="text-sm font-black uppercase tracking-widest">
-                {isSignedIn ? "Ready to continue?" : "Want the full experience?"}
-              </div>
+              <div className="text-sm font-black uppercase tracking-widest">Want the full experience?</div>
               <div className="text-sm text-muted-foreground font-medium">
-                {isSignedIn
-                  ? "Open your course workspace to continue lessons, assessments, and certificates."
-                  : "Sign in to unlock courses, track progress, and access the AI tutor."}
+                Sign in to unlock courses, track progress, and access the AI tutor.
               </div>
             </div>
             <Button
               className="h-11 px-6 font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#7F77DD]/20"
-              onClick={() => router.push(isSignedIn ? "/my-courses" : "/login")}
+              onClick={() => router.push("/login")}
             >
-              {isSignedIn ? "Open My Courses" : "Sign In"}
+              Sign In
             </Button>
           </CardContent>
         </Card>
@@ -207,3 +123,4 @@ export default function CatalogPage() {
     </div>
   )
 }
+

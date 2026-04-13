@@ -3,7 +3,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { PageBackButton } from "@/components/navigation/page-back-button"
 
 type SignupResult =
   | { ok: true }
@@ -21,7 +20,6 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-zinc-950 font-sans selection:bg-[#7F77DD] selection:text-white flex items-center justify-center p-6">
       <div className="max-w-md w-full space-y-6">
-        <PageBackButton fallbackHref="/login" />
         <div className="text-center space-y-3">
           <Link href="/" className="inline-flex items-center gap-2">
             <div className="w-10 h-10 bg-[#7F77DD] rounded-[8px] flex items-center justify-center shadow-lg shadow-[#7F77DD]/20">
