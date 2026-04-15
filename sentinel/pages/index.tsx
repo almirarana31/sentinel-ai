@@ -1,4 +1,4 @@
-﻿import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Shield, 
@@ -262,60 +262,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    </div>
-  );
-}
-
-
-
-
-
-
-lassName="hover:text-white transition-colors">
-              Manage Consent
-            </button>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-    </div>
-  );
-}
-
-
-
-
-
-
-
-
-
-lassName="hover:text-white transition-colors">
-              Manage Consent
-            </button>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-    </div>
-  );
-}
-
-
-
-
-
-
-
-
-
-
-
-

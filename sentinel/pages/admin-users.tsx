@@ -144,18 +144,3 @@ export default function AdminUsersPage() {
   )
 }
 
-           {/* Pagination Placeholder */}
-            <div className="p-4 border-t flex items-center justify-between">
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Menampilkan 1-10 dari {filtered.length} anggota</p>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="h-8 text-[10px] font-black uppercase tracking-widest" disabled>Prev</Button>
-                <Button variant="outline" size="sm" className="h-8 text-[10px] font-black uppercase tracking-widest" disabled>Next</Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
-}
-

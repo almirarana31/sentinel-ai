@@ -32,12 +32,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     payload: any
     created_at: any
   }>(
-    \`
+    `
     SELECT
       c.id,
-      COALESCE(u.email, "anonymous") as email,
-      COALESCE(u.name, "") as name,
-      COALESCE(u.role, "user") as role,
+      COALESCE(u.email, 'anonymous') as email,
+      COALESCE(u.name, '') as name,
+      COALESCE(u.role, 'user') as role,
       c.code_collection_point,
       c.payload,
       c.created_at
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     LEFT JOIN app_user u ON u.id = c.user_id
     ORDER BY c.created_at DESC
     LIMIT 500;
-    \`
+    `
   )
 
   const rows = out.rows.map((r) => {

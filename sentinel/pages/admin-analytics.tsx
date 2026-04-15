@@ -1,46 +1,47 @@
 import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
-  ResponsiveContainer,
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  Cell,
-  LineChart,
-  Line,
-  CartesianGrid,
-  PieChart,
-  Pie,
-  Legend,
 } from "recharts"
-import { TrendingUp, Map as MapIcon, Calendar, Leaf } from "lucide-react"
-import { useState } from "react"
+import { TrendingUp } from "lucide-react"
+
+const scoreDist = [
+  { bucket: "<60", count: 12 },
+  { bucket: "60-69", count: 24 },
+  { bucket: "70-79", count: 41 },
+  { bucket: "80-89", count: 58 },
+  { bucket: "90+", count: 31 },
+]
+
+const timeOnTask = [
+  { week: "W1", minutes: 95 },
+  { week: "W2", minutes: 124 },
+  { week: "W3", minutes: 118 },
+  { week: "W4", minutes: 146 },
+  { week: "W5", minutes: 173 },
+  { week: "W6", minutes: 161 },
+]
 
 const commodityDist = [
   { name: "Padi", value: 45, color: "#7F77DD" },
   { name: "Jagung", value: 25, color: "#1D9E75" },
   { name: "Kedelai", value: 20, color: "#BA7517" },
   { name: "Gandum", value: 10, color: "#E24B4A" },
-]
-
-const harvestData = [
-  { month: "Jan", status: "Planting" },
-  { month: "Feb", status: "Growing" },
-  { month: "Mar", status: "Harvest" },
-  { month: "Apr", status: "Dormant" },
-  { month: "May", status: "Planting" },
-  { month: "Jun", status: "Growing" },
-  { month: "Jul", status: "Harvest" },
-  { month: "Aug", status: "Growing" },
-  { month: "Sep", status: "Harvest" },
-  { month: "Oct", status: "Planting" },
-  { month: "Nov", status: "Growing" },
-  { month: "Dec", status: "Harvest" },
 ]
 
 export default function AdminAnalyticsPage() {
@@ -99,9 +100,9 @@ export default function AdminAnalyticsPage() {
                   <XAxis dataKey="bucket" axisLine={false} tickLine={false} />
                   <YAxis axisLine={false} tickLine={false} />
                   <Tooltip cursor={{ fill: "rgba(255,255,255,0.06)" }} />
-                  <Bar dataKey="count" radius={[8, 8, 8, 8]}>
-                    {scoreDist.map((_, i) => (
-                      <Cell key={i} fill={i >= 2 ? "#7F77DD" : "rgba(255,255,255,0.18)"} />
+                  <Bar dataKey="count" radius={[8, 8, 0, 0]}>
+                    {scoreDist.map((_, index) => (
+                      <Cell key={index} fill={index >= 2 ? "#7F77DD" : "rgba(127,119,221,0.35)"} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -126,104 +127,82 @@ export default function AdminAnalyticsPage() {
               </ResponsiveContainer>
             </CardContent>
           </Card>
-        </div>
 
-        <Card className="shadow-none">
-          <CardContent className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-[12px] bg-[#7F77DD]/10 border border-[#7F77DD]/20 flex items-center justify-center text-[#7F77DD]">
-                <TrendingUp className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black uppercase tracking-widest">Cohort Insights</div>
-                <div className="text-sm text-muted-foreground font-medium">
-                  Compare cohorts by team, role, or onboarding date (demo-only).
+          <Card className="lg:col-span-5 shadow-none">
+            <CardHeader>
+              <CardTitle className="text-sm font-black uppercase tracking-widest">Cohort Mix</CardTitle>
+              <CardDescription className="text-xs">Sample learner composition by program.</CardDescription>
+            </CardHeader>
+            <CardContent className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={commodityDist}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={55}
+                    outerRadius={95}
+                    paddingAngle={4}
+                  >
+                    {commodityDist.map((entry) => (
+                      <Cell key={entry.name} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card className="lg:col-span-7 shadow-none">
+            <CardHeader>
+              <CardTitle className="text-sm font-black uppercase tracking-widest">Cohort Insights</CardTitle>
+              <CardDescription className="text-xs">
+                Compare cohorts by team, role, or onboarding date.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-[12px] bg-[#7F77DD]/10 border border-[#7F77DD]/20 flex items-center justify-center text-[#7F77DD]">
+                  <TrendingUp className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-black uppercase tracking-widest">Trend Summary</div>
+                  <div className="text-sm text-muted-foreground font-medium">
+                    Completion rates are strongest in cohorts with higher weekly engagement.
+                  </div>
                 </div>
               </div>
-            </div>
-            <Button className="h-10 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-[#7F77DD]/20">
-              Generate Report
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
-}
 
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="rounded-2xl border border-white/10 bg-white/70 dark:bg-white/5 p-4">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    Completion
+                  </div>
+                  <div className="mt-2 text-2xl font-black">86%</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/70 dark:bg-white/5 p-4">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    Avg. Score
+                  </div>
+                  <div className="mt-2 text-2xl font-black">81</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/70 dark:bg-white/5 p-4">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    Weekly Active
+                  </div>
+                  <div className="mt-2 text-2xl font-black">143</div>
+                </div>
+              </div>
 
-ulse shadow-lg shadow-[#BA7517]/50" style={{ animationDelay: '1s' }} />
+              <Button className="h-10 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-[#7F77DD]/20">
+                Generate Report
+              </Button>
             </CardContent>
           </Card>
         </div>
-
-        {/* Harvest Calendar */}
-        <Card className="shadow-none">
-          <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <CardTitle className="text-sm font-black uppercase tracking-widest">Jadwal Panen Raya</CardTitle>
-              <CardDescription className="text-xs">Estimasi waktu panen berdasarkan siklus tanam.</CardDescription>
-            </div>
-            <div className="flex bg-zinc-100 dark:bg-white/5 p-1 rounded-[10px] border border-white/10">
-              {(["Day", "Week", "Month", "Year"] as const).map((v) => (
-                <button
-                  key={v}
-                  onClick={() => setView(v)}
-                  className={cn(
-                    "px-4 py-1.5 rounded-[8px] text-[10px] font-black uppercase tracking-widest transition-all",
-                    view === v ? "bg-white dark:bg-white/10 shadow-sm text-[#7F77DD]" : "text-muted-foreground hover:text-white"
-                  )}
-                >
-                  {v}
-                </button>
-              ))}
-            </div>
-          </CardHeader>
-          <CardContent className="p-6 overflow-x-auto">
-            <div className="grid grid-cols-12 gap-2 min-w-[800px]">
-              {harvestData.map((item) => (
-                <div key={item.month} className="space-y-2">
-                  <div className="text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">{item.month}</div>
-                  <div className={cn(
-                    "h-24 rounded-lg border flex flex-col items-center justify-center gap-2 transition-all hover:scale-105",
-                    item.status === "Harvest" 
-                      ? "bg-[#1D9E75]/10 border-[#1D9E75]/30 text-[#1D9E75]" 
-                      : item.status === "Planting"
-                        ? "bg-[#7F77DD]/10 border-[#7F77DD]/30 text-[#7F77DD]"
-                        : item.status === "Growing"
-                          ? "bg-[#BA7517]/10 border-[#BA7517]/30 text-[#BA7517]"
-                          : "bg-zinc-50 dark:bg-white/5 border-white/10 text-muted-foreground"
-                  )}>
-                    {item.status === "Harvest" ? <Leaf className="h-4 w-4" /> : item.status === "Planting" ? <Calendar className="h-4 w-4" /> : null}
-                    <span className="text-[8px] font-black uppercase tracking-tighter">{item.status}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-none">
-          <CardContent className="p-6 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-[12px] bg-[#7F77DD]/10 border border-[#7F77DD]/20 flex items-center justify-center text-[#7F77DD]">
-                <TrendingUp className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-sm font-black uppercase tracking-widest">Laporan Produksi</div>
-                <div className="text-sm text-muted-foreground font-medium">
-                  Ekspor data statistik komoditas untuk keperluan pelaporan tahunan.
-                </div>
-              </div>
-            </div>
-            <Button className="h-10 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-[#7F77DD]/20">
-              Download PDF
-            </Button>
-          </CardContent>
-        </Card>
       </div>
     </div>
   )
 }
-
-

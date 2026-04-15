@@ -24,7 +24,7 @@ function appUrl(req: NextApiRequest) {
   if (fromEnv) return fromEnv.replace(/\/+$/, "")
   const proto = (req.headers["x-forwarded-proto"] as string) || "http"
   const host = req.headers.host || "localhost:3000"
-  return \`\${proto}://\${host}\`
+  return `${proto}://${host}`
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<SignupResponse>) {
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await ensureSchema()
 
     const exists = await dbQuery<{ id: string; email_verified_at: any }>(
-      \`SELECT id, email_verified_at FROM app_user WHERE email = ? LIMIT 1;\`,
+      `SELECT id, email_verified_at FROM app_user WHERE email = ? LIMIT 1;`,
       [email]
     )
     if (exists.rows.length > 0) {
@@ -55,8 +55,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const userId = crypto.randomUUID()
 
     await dbQuery(
-      \`INSERT INTO app_user(id, email, name, password_salt, password_hash)
-       VALUES (?, ?, ?, ?, ?);\`,
+      `INSERT INTO app_user(id, email, name, password_salt, password_hash)
+       VALUES (?, ?, ?, ?, ?);`,
       [userId, email, name.trim(), salt, passwordHash]
     )
 
@@ -64,19 +64,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const tokenHash = sha256(code)
     const tokenId = crypto.randomUUID()
     await dbQuery(
-      \`INSERT INTO email_verification_token(id, user_id, token_hash, expires_at)
-       VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE));\`,
+      `INSERT INTO email_verification_token(id, user_id, token_hash, expires_at)
+       VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE));`,
       [tokenId, userId, tokenHash, VERIFY_CODE_TTL_MINUTES]
     )
 
-    const verifyPage = \`\${appUrl(req)}/verify-email?email=\${encodeURIComponent(email)}\`
+    const verifyPage = `${appUrl(req)}/verify-email?email=${encodeURIComponent(email)}`
     await sendEmail({
       to: email,
       subject: "Verify your email",
       text:
-        \`Your Sentinel verification code is:\n\n\${code}\n\n\` +
-        \`Enter it here:\n\${verifyPage}\n\n\` +
-        \`This code expires in \${VERIFY_CODE_TTL_MINUTES} minutes.\`,
+        `Your Sentinel verification code is:\n\n${code}\n\n` +
+        `Enter it here:\n${verifyPage}\n\n` +
+        `This code expires in ${VERIFY_CODE_TTL_MINUTES} minutes.`,
     })
 
     return res.status(201).json({
