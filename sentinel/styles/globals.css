@@ -58,6 +58,7 @@
   body {
     @apply text-foreground font-sans text-sm antialiased;
     min-height: 100vh;
+    zoom: 0.9;
     background-color: hsl(var(--background));
     background-image:
       radial-gradient(1100px circle at 0% 0%, rgba(var(--glow-purple) / 0.18) 0%, transparent 55%),

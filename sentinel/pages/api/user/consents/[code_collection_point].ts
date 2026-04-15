@@ -24,14 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const tokenHash = sha256(token)
   const sessionOut = await dbQuery<{ user_id: string }>(
-    `
+    \`
     SELECT user_id
     FROM app_session
-    WHERE token_hash = $1
-      AND expires_at > now()
+    WHERE token_hash = ?
+      AND expires_at > NOW()
     ORDER BY created_at DESC
     LIMIT 1;
-    `,
+    \`,
     [tokenHash]
   )
 
@@ -41,11 +41,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body
 
   await dbQuery(
-    `INSERT INTO consent_submission(id, user_id, code_collection_point, payload)
-     VALUES ($1, $2, $3, $4::jsonb);`,
+    \`INSERT INTO consent_submission(id, user_id, code_collection_point, payload)
+     VALUES (?, ?, ?, ?);\`,
     [crypto.randomUUID(), sessionRow.user_id, code, JSON.stringify(body ?? {})]
   )
 
   return res.status(200).json({ ok: true })
 }
-

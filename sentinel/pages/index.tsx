@@ -263,3 +263,59 @@ export default function LandingPage() {
   );
 }
 
+    </div>
+  );
+}
+
+
+
+
+
+
+lassName="hover:text-white transition-colors">
+              Manage Consent
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+lassName="hover:text-white transition-colors">
+              Manage Consent
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+

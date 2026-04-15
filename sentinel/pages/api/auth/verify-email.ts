@@ -17,20 +17,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   await ensureSchema()
 
-  const userOut = await dbQuery<{ id: string }>(`SELECT id FROM app_user WHERE email = $1 LIMIT 1;`, [email])
+  const userOut = await dbQuery<{ id: string }>(\`SELECT id FROM app_user WHERE email = ? LIMIT 1;\`, [email])
   const userRow = userOut.rows[0]
   if (!userRow) return res.status(404).json({ ok: false, error: "User not found" })
 
   const tokenOut = await dbQuery<{ id: string; token_hash: string; attempts: number }>(
-    `
+    \`
     SELECT id, token_hash, attempts
     FROM email_verification_token
-    WHERE user_id = $1
+    WHERE user_id = ?
       AND used_at IS NULL
-      AND expires_at > now()
+      AND expires_at > NOW()
     ORDER BY created_at DESC
     LIMIT 1;
-    `,
+    \`,
     [userRow.id]
   )
 
@@ -42,12 +42,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const tokenHash = sha256(code)
   if (tokenHash !== token.token_hash) {
-    await dbQuery(`UPDATE email_verification_token SET attempts = attempts + 1 WHERE id = $1;`, [token.id])
+    await dbQuery(\`UPDATE email_verification_token SET attempts = attempts + 1 WHERE id = ?;\`, [token.id])
     return res.status(400).json({ ok: false, error: "Invalid or expired code" })
   }
 
-  await dbQuery(`UPDATE app_user SET email_verified_at = now() WHERE id = $1;`, [userRow.id])
-  await dbQuery(`UPDATE email_verification_token SET used_at = now() WHERE id = $1;`, [token.id])
+  await dbQuery(\`UPDATE app_user SET email_verified_at = NOW() WHERE id = ?;\`, [userRow.id])
+  await dbQuery(\`UPDATE email_verification_token SET used_at = NOW() WHERE id = ?;\`, [token.id])
 
   return res.status(200).json({ ok: true })
 }

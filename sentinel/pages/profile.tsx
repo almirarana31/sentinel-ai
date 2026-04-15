@@ -1,9 +1,15 @@
-﻿import { useRouter } from "next/router"
+import { useRouter } from "next/router"
 import { useAuth } from "@/lib/auth-context"
 import { LockedScreen } from "@/components/auth/locked-screen"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ShieldCheck, FileText, LogOut, LayoutGrid } from "lucide-react"
+import { ShieldCheck, FileText, LogOut, LayoutGrid, Search, Users } from "lucide-react"
+
+const profileSelectors = [
+  { id: 1, name: "Almira S.", role: "Ketua", status: "Online" },
+  { id: 2, name: "Budi H.", role: "Sekretaris", status: "Offline" },
+  { id: 3, name: "Citra D.", role: "Bendahara", status: "Away" },
+]
 
 export default function ProfilePage() {
   const router = useRouter()
@@ -76,4 +82,51 @@ export default function ProfilePage() {
     </div>
   )
 }
+
+
+ctor Table */}
+        <Card className="shadow-none">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="text-sm font-black uppercase tracking-widest">Pilih Profil</CardTitle>
+              <CardDescription className="text-xs">Ganti profil untuk simulasi behavior berbeda.</CardDescription>
+            </div>
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3 w-3 text-muted-foreground" />
+              <input 
+                placeholder="Cari..." 
+                className="h-8 pl-7 pr-3 rounded-[8px] border border-white/10 bg-white/5 text-[10px] outline-none w-40" 
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="border-t divide-y">
+              {profileSelectors.map((p) => (
+                <div key={p.id} className="p-3 flex items-center justify-between hover:bg-white/5 transition-colors cursor-pointer group">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-black group-hover:bg-[#7F77DD] transition-colors">
+                      {p.name.split(" ").map(n => n[0]).join("")}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold leading-none mb-1">{p.name}</p>
+                      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest">{p.role}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className={cn(
+                      "h-1.5 w-1.5 rounded-full animate-pulse",
+                      p.status === "Online" ? "bg-[#1D9E75]" : p.status === "Away" ? "bg-[#BA7517]" : "bg-muted-foreground"
+                    )} />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{p.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
 

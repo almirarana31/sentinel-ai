@@ -14,21 +14,33 @@ import {
   LineChart,
   Line,
   CartesianGrid,
+  PieChart,
+  Pie,
+  Legend,
 } from "recharts"
-import { TrendingUp } from "lucide-react"
+import { TrendingUp, Map as MapIcon, Calendar, Leaf } from "lucide-react"
+import { useState } from "react"
 
-const scoreDist = [
-  { bucket: "0-49", count: 4 },
-  { bucket: "50-69", count: 18 },
-  { bucket: "70-84", count: 42 },
-  { bucket: "85-100", count: 28 },
+const commodityDist = [
+  { name: "Padi", value: 45, color: "#7F77DD" },
+  { name: "Jagung", value: 25, color: "#1D9E75" },
+  { name: "Kedelai", value: 20, color: "#BA7517" },
+  { name: "Gandum", value: 10, color: "#E24B4A" },
 ]
 
-const timeOnTask = [
-  { week: "W1", minutes: 120 },
-  { week: "W2", minutes: 180 },
-  { week: "W3", minutes: 210 },
-  { week: "W4", minutes: 260 },
+const harvestData = [
+  { month: "Jan", status: "Planting" },
+  { month: "Feb", status: "Growing" },
+  { month: "Mar", status: "Harvest" },
+  { month: "Apr", status: "Dormant" },
+  { month: "May", status: "Planting" },
+  { month: "Jun", status: "Growing" },
+  { month: "Jul", status: "Harvest" },
+  { month: "Aug", status: "Growing" },
+  { month: "Sep", status: "Harvest" },
+  { month: "Oct", status: "Planting" },
+  { month: "Nov", status: "Growing" },
+  { month: "Dec", status: "Harvest" },
 ]
 
 export default function AdminAnalyticsPage() {
@@ -138,4 +150,80 @@ export default function AdminAnalyticsPage() {
     </div>
   )
 }
+
+
+ulse shadow-lg shadow-[#BA7517]/50" style={{ animationDelay: '1s' }} />
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Harvest Calendar */}
+        <Card className="shadow-none">
+          <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <CardTitle className="text-sm font-black uppercase tracking-widest">Jadwal Panen Raya</CardTitle>
+              <CardDescription className="text-xs">Estimasi waktu panen berdasarkan siklus tanam.</CardDescription>
+            </div>
+            <div className="flex bg-zinc-100 dark:bg-white/5 p-1 rounded-[10px] border border-white/10">
+              {(["Day", "Week", "Month", "Year"] as const).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setView(v)}
+                  className={cn(
+                    "px-4 py-1.5 rounded-[8px] text-[10px] font-black uppercase tracking-widest transition-all",
+                    view === v ? "bg-white dark:bg-white/10 shadow-sm text-[#7F77DD]" : "text-muted-foreground hover:text-white"
+                  )}
+                >
+                  {v}
+                </button>
+              ))}
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 overflow-x-auto">
+            <div className="grid grid-cols-12 gap-2 min-w-[800px]">
+              {harvestData.map((item) => (
+                <div key={item.month} className="space-y-2">
+                  <div className="text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">{item.month}</div>
+                  <div className={cn(
+                    "h-24 rounded-lg border flex flex-col items-center justify-center gap-2 transition-all hover:scale-105",
+                    item.status === "Harvest" 
+                      ? "bg-[#1D9E75]/10 border-[#1D9E75]/30 text-[#1D9E75]" 
+                      : item.status === "Planting"
+                        ? "bg-[#7F77DD]/10 border-[#7F77DD]/30 text-[#7F77DD]"
+                        : item.status === "Growing"
+                          ? "bg-[#BA7517]/10 border-[#BA7517]/30 text-[#BA7517]"
+                          : "bg-zinc-50 dark:bg-white/5 border-white/10 text-muted-foreground"
+                  )}>
+                    {item.status === "Harvest" ? <Leaf className="h-4 w-4" /> : item.status === "Planting" ? <Calendar className="h-4 w-4" /> : null}
+                    <span className="text-[8px] font-black uppercase tracking-tighter">{item.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-none">
+          <CardContent className="p-6 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-[12px] bg-[#7F77DD]/10 border border-[#7F77DD]/20 flex items-center justify-center text-[#7F77DD]">
+                <TrendingUp className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-sm font-black uppercase tracking-widest">Laporan Produksi</div>
+                <div className="text-sm text-muted-foreground font-medium">
+                  Ekspor data statistik komoditas untuk keperluan pelaporan tahunan.
+                </div>
+              </div>
+            </div>
+            <Button className="h-10 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-[#7F77DD]/20">
+              Download PDF
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
 

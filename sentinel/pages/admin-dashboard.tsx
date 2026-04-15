@@ -371,3 +371,55 @@ export default function AdminDashboard() {
     </div>
   );
 }
+  );
+}
+sName="h-8 w-8 border-white/15">
+                          <MoreHorizontal className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Activity / Audit Log */}
+          <Card className="shadow-none">
+            <CardHeader>
+              <CardTitle className="text-sm font-black uppercase tracking-widest">Certification Audit</CardTitle>
+              <CardDescription className="text-xs">Latest certificates issued across the org.</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y border-t">
+                {[
+                  { name: "Sarah K.", cert: "Risk Analyst I", date: "2m ago" },
+                  { name: "Michael R.", cert: "Industrial Safety", date: "15m ago" },
+                  { name: "Jessica W.", cert: "Neural Specialist", date: "1h ago" },
+                ].map((item) => (
+                  <div key={item.name} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="h-8 w-8 bg-[#1D9E75]/10 rounded-full flex items-center justify-center text-[#1D9E75]">
+                        <CheckCircle2 className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold leading-none mb-1">{item.name}</p>
+                        <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest">Earned <span className="text-zinc-950 dark:text-zinc-100 font-bold">{item.cert}</span></p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest">{item.date}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="p-4 bg-white/5 border-t border-white/10 flex justify-center">
+                <Button variant="ghost" className="text-[10px] font-black uppercase tracking-widest text-[#7F77DD]">View Full Audit Trail</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+  );
+}

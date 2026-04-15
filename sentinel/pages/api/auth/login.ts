@@ -14,7 +14,6 @@ const DEMO_PASSWORD = "Almira"
 const VERIFY_CODE_TTL_MINUTES = 15
 
 function randomVerificationCode() {
-  // 6-digit code
   return String(crypto.randomInt(100000, 1000000))
 }
 
@@ -27,7 +26,7 @@ function appUrl(req: NextApiRequest) {
   if (fromEnv) return fromEnv.replace(/\/+$/, "")
   const proto = (req.headers["x-forwarded-proto"] as string) || "http"
   const host = req.headers.host || "localhost:3000"
-  return `${proto}://${host}`
+  return \`\${proto}://\${host}\`
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<LoginResponse>) {
@@ -53,12 +52,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       name: string | null
       password_salt: string | null
       password_hash: string | null
-      email_verified_at: string | null
+      email_verified_at: any
     }>(
-      `SELECT id, email, name, password_salt, password_hash, email_verified_at::text
+      \`SELECT id, email, name, password_salt, password_hash, email_verified_at
        FROM app_user
-       WHERE email = $1
-       LIMIT 1;`,
+       WHERE email = ?
+       LIMIT 1;\`,
       [email]
     )
 
@@ -66,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     let userName: string
     let verifiedNow = false
 
-    if ((existing.rowCount ?? 0) === 0) {
+    if (existing.rows.length === 0) {
       if (!isDemo) {
         return res.status(404).json({ ok: false, error: "Account not found. Please sign up first." })
       }
@@ -77,8 +76,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       userName = name
 
       await dbQuery(
-        `INSERT INTO app_user(id, email, name, password_salt, password_hash, email_verified_at)
-         VALUES ($1, $2, $3, $4, $5, now());`,
+        \`INSERT INTO app_user(id, email, name, password_salt, password_hash, email_verified_at)
+         VALUES (?, ?, ?, ?, ?, NOW());\`,
         [userId, email, userName, salt, passwordHash]
       )
 
@@ -100,7 +99,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       if (!ok) return res.status(401).json({ ok: false, error: "Invalid email or password" })
 
       if (!u.email_verified_at && isDemo) {
-        await dbQuery(`UPDATE app_user SET email_verified_at = now() WHERE id = $1;`, [userId])
+        await dbQuery(\`UPDATE app_user SET email_verified_at = NOW() WHERE id = ?;\`, [userId])
         verifiedNow = true
       } else {
         verifiedNow = Boolean(u.email_verified_at)
@@ -112,19 +111,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const tokenHash = sha256(code)
       const tokenId = crypto.randomUUID()
       await dbQuery(
-        `INSERT INTO email_verification_token(id, user_id, token_hash, expires_at)
-         VALUES ($1, $2, $3, now() + ($4)::interval);`,
-        [tokenId, userId, tokenHash, `${VERIFY_CODE_TTL_MINUTES} minutes`]
+        \`INSERT INTO email_verification_token(id, user_id, token_hash, expires_at)
+         VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE));\`,
+        [tokenId, userId, tokenHash, VERIFY_CODE_TTL_MINUTES]
       )
 
-      const link = `${appUrl(req)}/verify-email?email=${encodeURIComponent(email)}`
+      const link = \`\${appUrl(req)}/verify-email?email=\${encodeURIComponent(email)}\`
       await sendEmail({
         to: email,
         subject: "Verify your email",
         text:
-          `Your Sentinel verification code is:\n\n${code}\n\n` +
-          `Enter it here:\n${link}\n\n` +
-          `This code expires in ${VERIFY_CODE_TTL_MINUTES} minutes.`,
+          \`Your Sentinel verification code is:\n\n\${code}\n\n\` +
+          \`Enter it here:\n\${link}\n\n\` +
+          \`This code expires in \${VERIFY_CODE_TTL_MINUTES} minutes.\`,
       })
 
       return res.status(202).json({
@@ -138,8 +137,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const sessionHash = sha256(sessionToken)
     const sessionId = crypto.randomUUID()
     await dbQuery(
-      `INSERT INTO app_session(id, user_id, token_hash, expires_at)
-       VALUES ($1, $2, $3, now() + interval '7 days');`,
+      \`INSERT INTO app_session(id, user_id, token_hash, expires_at)
+       VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY));\`,
       [sessionId, userId, sessionHash]
     )
 

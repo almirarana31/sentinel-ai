@@ -1,30 +1,76 @@
-import { Pool, type QueryResultRow } from "pg"
+import mysql from "mysql2/promise"
 import { SCHEMA_SQL } from "@/lib/db/schema"
 
-let pool: Pool | null = null
+let pool: mysql.Pool | null = null
 let schemaEnsured = false
 
-function getDatabaseUrl() {
+function getDatabaseConfig() {
   const url = process.env.DATABASE_URL
-  if (!url) throw new Error("Missing DATABASE_URL")
-  return url
+  
+  if (!url) {
+    // Fallback for Hostinger environment variables
+    return {
+      host: process.env.DB_HOST || "localhost",
+      port: parseInt(process.env.DB_PORT || "3306"),
+      user: process.env.DB_USER || "u118172070_almirarana",
+      password: process.env.DB_PASSWORD || "$entinelDB123",
+      database: process.env.DB_NAME || "u118172070_sentinelsql",
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+    }
+  }
+  
+  try {
+    const parsed = new URL(url)
+    return {
+      host: parsed.hostname,
+      port: parseInt(parsed.port) || 3306,
+      user: parsed.username,
+      password: parsed.password,
+      database: parsed.pathname.substring(1),
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+      ssl: url.includes("sslmode=") ? { rejectUnauthorized: false } : undefined
+    }
+  } catch (e) {
+    return { uri: url }
+  }
 }
 
 export function getPool() {
   if (!pool) {
-    pool = new Pool({ connectionString: getDatabaseUrl() })
+    const config = getDatabaseConfig()
+    if ("uri" in config) {
+      pool = mysql.createPool((config as any).uri)
+    } else {
+      pool = mysql.createPool(config)
+    }
   }
   return pool
 }
 
-export async function dbQuery<T extends QueryResultRow = any>(text: string, values?: any[]) {
-  if (!values) return await getPool().query<T>(text)
-  return await getPool().query<T>(text, values)
+export async function dbQuery<T = any>(text: string, values?: any[]) {
+  const mysqlText = text.replace(/\$\d+/g, "?")
+  const [rows] = await getPool().execute(mysqlText, values)
+  return { rows: rows as T[] }
 }
 
 export async function ensureSchema() {
   if (schemaEnsured) return
-  // Important: schema SQL contains multiple statements; run it as a simple query (no params)
-  await dbQuery(SCHEMA_SQL)
-  schemaEnsured = true
+  
+  const statements = SCHEMA_SQL.split(";").filter(s => s.trim().length > 0)
+  const connection = await getPool().getConnection()
+  
+  try {
+    for (const statement of statements) {
+      await connection.query(statement)
+    }
+    schemaEnsured = true
+  } catch (err) {
+    console.error("Schema initialization failed:", err)
+  } finally {
+    connection.release()
+  }
 }
